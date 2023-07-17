@@ -9,10 +9,15 @@ public class PlayerInputController : ElympicsMonoBehaviour, IInputHandler, IInit
     [Header("References")]
     [SerializeField]
     private PlayerMovement playerMovement;
+    [SerializeField]
+    private PlayerAimer playerAimer;
 
     private PlayerInputCollector playerInputCollector;
 
     private Vector2 moveDirection = Vector2.zero;
+    private Vector2 aimDirection = Vector2.zero;
+    private bool pickUpButton = false;
+    private float rotationDirection = 0;
 
     public void Initialize()
     {
@@ -41,20 +46,38 @@ public class PlayerInputController : ElympicsMonoBehaviour, IInputHandler, IInit
     private void ApplyInput()
     {
         playerMovement.SetDirection(moveDirection);
+        playerAimer.SetAimDirection(aimDirection);
     }
 
     private void SerializeInput(IInputWriter inputSerializer)
     {
         inputSerializer.Write(playerInputCollector.MoveDirection.x);
         inputSerializer.Write(playerInputCollector.MoveDirection.y);
+        inputSerializer.Write(playerInputCollector.AimDirection.x);
+        inputSerializer.Write(playerInputCollector.AimDirection.y);
+        inputSerializer.Write(playerInputCollector.PickUpButton);
+        inputSerializer.Write(playerInputCollector.RotationDirection);
     }
 
     private void DeserializeInput(IInputReader inputReader)
     {
-        float tmp;
-        inputReader.Read(out tmp);
-        moveDirection.x = tmp;
-        inputReader.Read(out tmp);
-        moveDirection.y = tmp;
+        float tmpFloat;
+        bool tmpBool;
+
+        inputReader.Read(out tmpFloat);
+        moveDirection.x = tmpFloat;
+        inputReader.Read(out tmpFloat);
+        moveDirection.y = tmpFloat;
+
+        inputReader.Read(out tmpFloat);
+        aimDirection.x = tmpFloat;
+        inputReader.Read(out tmpFloat);
+        aimDirection.y = tmpFloat;
+
+        inputReader.Read(out tmpBool);
+        pickUpButton = tmpBool;
+
+        inputReader.Read(out tmpFloat);
+        rotationDirection = tmpFloat;
     }
 }
