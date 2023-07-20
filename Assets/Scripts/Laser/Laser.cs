@@ -8,6 +8,10 @@ public class Laser : ElympicsMonoBehaviour, IInitializable, IUpdatable
 {
     [SerializeField]
     private float maxReflectionCount;
+    [SerializeField]
+    private LayerMask laserLayerMask;
+    [SerializeField]
+    private float maxDistance;
 
     private List<Vector3> positions = new List<Vector3>();
     private List<Vector3> directions = new List<Vector3>();
@@ -55,7 +59,7 @@ public class Laser : ElympicsMonoBehaviour, IInitializable, IUpdatable
         }
         positions.Add(startPosition.Value);
         directions.Add(startDirection.Value);
-        for (int i = 0; i < positions.Count; i++)
+        for (int i = 0; i < positions.Count && i < directions.Count; i++)
         {
             CalculateNextPosition(i);
         }
@@ -67,10 +71,8 @@ public class Laser : ElympicsMonoBehaviour, IInitializable, IUpdatable
         {
             return;
         }
-        if (Physics.Raycast(positions[i], directions[i], out RaycastHit hitInfo))
+        if (Physics.Raycast(positions[i], directions[i], out RaycastHit hitInfo, maxDistance, laserLayerMask))
         {
-            positions.Add(hitInfo.point);
-
             if (hitInfo.collider.TryGetComponent(out PlayerData playerData))
             {
                 if (playerData.PlayerColorInt != playerColorInt.Value)
@@ -81,15 +83,22 @@ public class Laser : ElympicsMonoBehaviour, IInitializable, IUpdatable
                     }
                 }
                 directions.Add(Vector3.zero);
+                positions.Add(hitInfo.point);
+            }
+            else if (hitInfo.collider.TryGetComponent(out CubeReflection cubeReflection))
+            {
+                directions.Add(cubeReflection.Direction);
+                positions.Add(cubeReflection.Point);
             }
             else
             {
+                positions.Add(hitInfo.point);
                 directions.Add(Vector3.Reflect(directions[i], hitInfo.normal));
             }
         }
         else
         {
-            positions.Add(positions[i] + directions[i] * 1000);
+            positions.Add(positions[i] + directions[i] * maxDistance);
             directions.Add(Vector3.zero);
         }
     }

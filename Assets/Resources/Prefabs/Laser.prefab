@@ -173,3 +173,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   maxReflectionCount: 10
+  laserLayerMask:
+    serializedVersion: 2
+    m_Bits: 65
+  maxDistance: 1000
