@@ -15,7 +15,8 @@ public class PlayerData : MonoBehaviour
     [SerializeField]
     private PlayerColor playerColor;
     public PlayerColor PlayerColorEnum => playerColor;
-    public Color color => PlayerColorToColor(playerColor);
+    public Color Color => PlayerColorToColor(playerColor);
+    public int PlayerColorInt => (int)playerColor;
 
     public static Color PlayerColorToColor(PlayerColor playerColor)
     {

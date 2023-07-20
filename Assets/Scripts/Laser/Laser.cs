@@ -4,7 +4,7 @@ using UnityEngine;
 using Elympics;
 
 [RequireComponent(typeof(LineRenderer))]
-public class Laser : ElympicsMonoBehaviour, IInitializable
+public class Laser : ElympicsMonoBehaviour, IInitializable, IUpdatable
 {
     [SerializeField]
     private float maxReflectionCount;
@@ -18,6 +18,7 @@ public class Laser : ElympicsMonoBehaviour, IInitializable
     private ElympicsInt playerColorInt = new ElympicsInt((int)PlayerData.PlayerColor.None);
 
     private LineRenderer lineRenderer;
+    private float damage = 0;
 
     private void Awake()
     {
@@ -26,17 +27,16 @@ public class Laser : ElympicsMonoBehaviour, IInitializable
 
     private void Update()
     {
-        CalculateLaserPath();
         DrawLine();
     }
 
-    public void Begin(Vector3 pos, Vector3 dir, PlayerData.PlayerColor playerColor)
+    public void Begin(Vector3 pos, Vector3 dir, PlayerData.PlayerColor playerColor, float damage)
     {
         lineRenderer.positionCount = 0;
         playerColorInt.Value = (int)playerColor;
         startPosition.Value = pos;
         startDirection.Value = dir;
-        CalculateLaserPath();
+        this.damage = damage;
     }
 
     private void ChangeColor(int color)
@@ -70,7 +70,22 @@ public class Laser : ElympicsMonoBehaviour, IInitializable
         if (Physics.Raycast(positions[i], directions[i], out RaycastHit hitInfo))
         {
             positions.Add(hitInfo.point);
-            directions.Add(Vector3.Reflect(directions[i], hitInfo.normal));
+
+            if (hitInfo.collider.TryGetComponent(out PlayerData playerData))
+            {
+                if (playerData.PlayerColorInt != playerColorInt.Value)
+                {
+                    if (Elympics.IsServer)
+                    {
+                        playerData.GetComponent<PlayerHealth>().TakeDamage(damage);
+                    }
+                }
+                directions.Add(Vector3.zero);
+            }
+            else
+            {
+                directions.Add(Vector3.Reflect(directions[i], hitInfo.normal));
+            }
         }
         else
         {
@@ -88,5 +103,10 @@ public class Laser : ElympicsMonoBehaviour, IInitializable
     public void Initialize()
     {
         playerColorInt.ValueChanged += (_, e) => ChangeColor(e);
+    }
+
+    public void ElympicsUpdate()
+    {
+        CalculateLaserPath();
     }
 }

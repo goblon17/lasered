@@ -763,7 +763,8 @@ MonoBehaviour:
   laserPrefabResourcePath: Prefabs/Laser
   emissionPosition: {x: 0, y: 0, z: 0.5}
   emissionRotation: 0
-  playerColor: 1
+  playerColor: 0
+  damage: 1
   drawGizmos: 1
   sphereRadius: 0.1
 --- !u!1 &499328694

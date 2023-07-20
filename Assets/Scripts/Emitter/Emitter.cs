@@ -16,6 +16,8 @@ public class Emitter : ElympicsMonoBehaviour, IUpdatable
     private float emissionRotation;
     [SerializeField]
     private PlayerData.PlayerColor playerColor;
+    [SerializeField]
+    private float damage;
 
     [Header("Debug")]
     [SerializeField]
@@ -31,9 +33,9 @@ public class Emitter : ElympicsMonoBehaviour, IUpdatable
     {
         if (laser == null)
         {
-            laser = ElympicsInstantiate(laserPrefabResourcePath, ElympicsPlayer.World).GetComponent<Laser>();
+            laser = ElympicsInstantiate(laserPrefabResourcePath, ElympicsPlayer.All).GetComponent<Laser>();
         }
-        laser.Begin(transform.position + emissionPosition, emissionDirection, playerColor);
+        laser.Begin(transform.position + emissionPosition, emissionDirection, playerColor, damage);
     }
 
     private void OnDrawGizmos()

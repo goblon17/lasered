@@ -49,7 +49,7 @@ MonoBehaviour:
   forceNetworkId: 0
   networkId: 3
   predictableFor:
-    playerIndex: -2
+    playerIndex: -3
   isUpdatableForNonOwners: 0
   visibleFor:
     playerIndex: -3
