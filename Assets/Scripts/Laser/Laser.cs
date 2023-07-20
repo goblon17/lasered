@@ -82,18 +82,19 @@ public class Laser : ElympicsMonoBehaviour, IInitializable, IUpdatable
                         playerData.GetComponent<PlayerHealth>().TakeDamage(damage);
                     }
                 }
-                directions.Add(Vector3.zero);
                 positions.Add(hitInfo.point);
+                directions.Add(Vector3.zero);
             }
             else if (hitInfo.collider.TryGetComponent(out CubeReflection cubeReflection))
             {
-                directions.Add(cubeReflection.Direction);
                 positions.Add(cubeReflection.Point);
+                directions.Add(cubeReflection.Direction);
             }
             else
             {
                 positions.Add(hitInfo.point);
-                directions.Add(Vector3.Reflect(directions[i], hitInfo.normal));
+                directions.Add(Vector3.zero);
+                //directions.Add(Vector3.Reflect(directions[i], hitInfo.normal));
             }
         }
         else

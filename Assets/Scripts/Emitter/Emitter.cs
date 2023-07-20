@@ -35,7 +35,7 @@ public class Emitter : ElympicsMonoBehaviour, IUpdatable
         {
             laser = ElympicsInstantiate(laserPrefabResourcePath, ElympicsPlayer.All).GetComponent<Laser>();
         }
-        laser.Begin(transform.position + emissionPosition, emissionDirection, playerColor, damage);
+        laser.Begin(transform.TransformPoint(emissionPosition), emissionDirection, playerColor, damage);
     }
 
     private void OnDrawGizmos()
@@ -45,8 +45,8 @@ public class Emitter : ElympicsMonoBehaviour, IUpdatable
             return;
         }
         Gizmos.color = PlayerData.PlayerColorToColor(playerColor);
-        Gizmos.DrawSphere(transform.position + emissionPosition, sphereRadius);
-        Gizmos.DrawLine(transform.position + emissionPosition, transform.position + emissionPosition + emissionDirection);
+        Gizmos.DrawSphere(transform.TransformPoint(emissionPosition), sphereRadius);
+        Gizmos.DrawLine(transform.TransformPoint(emissionPosition), transform.TransformPoint(emissionPosition) + emissionDirection);
     }
 
     public void ElympicsUpdate()
