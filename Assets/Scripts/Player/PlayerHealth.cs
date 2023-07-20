@@ -8,14 +8,17 @@ public class PlayerHealth : ElympicsMonoBehaviour, IInitializable
     [SerializeField]
     private float maxHealth = 100;
 
+    public float MaxHealth => maxHealth;
+    public float CurrentHealth => currentHealth.Value;
+
     public event System.Action<float, float> HealthChangedEvent;
 
-    private ElympicsFloat currentHealth = new ElympicsFloat(0);
+    private ElympicsFloat currentHealth = new ElympicsFloat(0, comparer: new ElympicsFloatEqualityComparer(0));
 
     public void Initialize()
     {
-        currentHealth.Value = 100;
         currentHealth.ValueChanged += (_, v) => HealthChangedEvent?.Invoke(v, maxHealth);
+        currentHealth.Value = 100;
     }
 
     public bool TakeDamage(float damage)

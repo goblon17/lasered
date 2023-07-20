@@ -4,6 +4,7 @@ using UnityEngine;
 using Elympics;
 
 [RequireComponent(typeof(PlayerInputCollector))]
+[RequireComponent(typeof(PlayerData))]
 public class PlayerInputController : ElympicsMonoBehaviour, IInputHandler, IInitializable, IUpdatable
 {
     [Header("References")]
@@ -13,6 +14,7 @@ public class PlayerInputController : ElympicsMonoBehaviour, IInputHandler, IInit
     private PlayerAimer playerAimer;
 
     private PlayerInputCollector playerInputCollector;
+    private PlayerData playerData;
 
     private Vector2 moveDirection = Vector2.zero;
     private Vector2 aimDirection = Vector2.zero;
@@ -22,11 +24,12 @@ public class PlayerInputController : ElympicsMonoBehaviour, IInputHandler, IInit
     public void Initialize()
     {
         playerInputCollector = GetComponent<PlayerInputCollector>();
+        playerData = GetComponent<PlayerData>();
     }
 
     public void ElympicsUpdate()
     {
-        if (ElympicsBehaviour.TryGetInput(PredictableFor, out IInputReader inputReader))
+        if (ElympicsBehaviour.TryGetInput(playerData.Player, out IInputReader inputReader))
         {
             DeserializeInput(inputReader);
         }

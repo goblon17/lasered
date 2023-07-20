@@ -10,7 +10,7 @@ public class PlayerAimer : ElympicsMonoBehaviour
 
     public Vector3 Forward => Quaternion.Euler(0, yRotation.Value, 0) * transform.forward;
 
-    private ElympicsFloat yRotation = new ElympicsFloat(0);
+    private ElympicsFloat yRotation = new ElympicsFloat(0, comparer: new ElympicsFloatEqualityComparer(0));
 
     private Vector2 aimDirection = Vector2.zero;
 
