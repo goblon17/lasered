@@ -8,19 +8,24 @@ public class PlayerAimer : ElympicsMonoBehaviour
     [SerializeField]
     private float sensitivity;
 
-    public Vector3 Forward => Quaternion.Euler(0, yRotation.Value, 0) * transform.forward;
-    public Quaternion Rotation => Quaternion.Euler(0, yRotation.Value, 0);
-    public float YRotation => yRotation.Value;
+    public Vector3 Forward => Quaternion.Euler(0, yRotation, 0) * transform.forward;
+    public Quaternion Rotation => Quaternion.Euler(0, yRotation, 0);
+    public float YRotation => yRotation;
+    public event System.Action<Vector2> AimDirectionChangedEvent;
 
-    private ElympicsFloat yRotation = new ElympicsFloat(0, comparer: new ElympicsFloatEqualityComparer(Mathf.Epsilon));
+    private ElympicsVector2 aimDirectionSynch = new ElympicsVector2(Vector2.zero, comparer: new ElympicsVector2EqualityComparer(Mathf.Epsilon));
 
     private Vector2 aimDirection = Vector2.zero;
+    private float yRotation = 0;
 
     public void SetAimDirection(Vector2 aimDir)
     {
+        aimDirection = aimDirectionSynch.Value;
         aimDirection += aimDir * sensitivity;
         aimDirection = Vector2.ClampMagnitude(aimDirection, 1);
-        yRotation.Value = -Vector2.SignedAngle(new Vector2(transform.forward.x, transform.forward.z), aimDirection);
+        AimDirectionChangedEvent?.Invoke(aimDirection);
+        yRotation = -Vector2.SignedAngle(new Vector2(transform.forward.x, transform.forward.z), aimDirection);
+        aimDirectionSynch.Value = aimDirection;
     }
 
 

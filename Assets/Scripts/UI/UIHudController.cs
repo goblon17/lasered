@@ -6,6 +6,8 @@ public class UIHudController : Singleton<UIHudController>
 {
     [SerializeField]
     private UIBarController healthBar;
+    [SerializeField]
+    private UICursorController cursorController;
 
     private void Start()
     {
@@ -21,7 +23,10 @@ public class UIHudController : Singleton<UIHudController>
 
     private void RegisterPlayer()
     {
-        ClientProvider.Instance.ClientPlayer.GetComponent<PlayerHealth>().HealthChangedEvent += healthBar.ChangeValue;
+        PlayerData playerData = ClientProvider.Instance.ClientPlayer;
+        playerData.GetComponent<PlayerHealth>().HealthChangedEvent += healthBar.ChangeValue;
         //healthBar.ChangeValue();
+
+        playerData.GetComponent<PlayerAimer>().AimDirectionChangedEvent += cursorController.SetAimDirection;
     }
 }
