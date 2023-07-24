@@ -8,6 +8,10 @@ public class UIHudController : Singleton<UIHudController>
     private UIBarController healthBar;
     [SerializeField]
     private UICursorController cursorController;
+    [SerializeField]
+    private UIInteractionTooltip interactionTooltip;
+
+    public UIInteractionTooltip InteractionTooltip => interactionTooltip;
 
     private void Start()
     {

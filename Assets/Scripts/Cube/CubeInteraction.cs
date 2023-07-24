@@ -6,10 +6,18 @@ using Elympics;
 [RequireComponent(typeof(Rigidbody))]
 public class CubeInteraction : ElympicsMonoBehaviour, IInteractable, IUpdatable
 {
+    [Header("Config")]
     [SerializeField]
     private Vector3 pickupOffset;
+    [SerializeField]
+    private Vector3 iconOffset;
+
+    [Header("Debug")]
+    private bool drawGizmos;
+    private float gizmoSize;
 
     public Vector3 Position => rigidbody.position;
+    public bool IsSelected { get; private set; } = false;
 
     public bool CanBeInteractedWith => playerId.Value < 0;
 
@@ -28,6 +36,7 @@ public class CubeInteraction : ElympicsMonoBehaviour, IInteractable, IUpdatable
     {
         this.playerId.Value = playerId;
         rigidbody.isKinematic = true;
+        Unselect();
     }
 
     public void StopInteracting()
@@ -38,12 +47,14 @@ public class CubeInteraction : ElympicsMonoBehaviour, IInteractable, IUpdatable
 
     public void Select()
     {
-
+        UIHudController.Instance.InteractionTooltip.ShowInteraction(this, transform);
+        IsSelected = true;
     }
 
     public void Unselect()
     {
-        
+        UIHudController.Instance.InteractionTooltip.HideInteraction(this);
+        IsSelected = false;
     }
 
     public void ElympicsUpdate()
@@ -65,5 +76,16 @@ public class CubeInteraction : ElympicsMonoBehaviour, IInteractable, IUpdatable
         }
         rigidbody.position = playerAimer.transform.position + playerAimer.Rotation * pickupOffset;
         rigidbody.rotation = playerAimer.Rotation;
+    }
+
+    private void OnDrawGizmos()
+    {
+        if (!drawGizmos)
+        {
+            return;
+        }
+
+        Gizmos.color = Color.cyan;
+        Gizmos.DrawSphere(transform.TransformPoint(iconOffset), gizmoSize);
     }
 }

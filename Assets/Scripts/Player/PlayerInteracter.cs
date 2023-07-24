@@ -1,9 +1,10 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Elympics;
 
 [RequireComponent(typeof(PlayerData))]
-public class PlayerInteracter : MonoBehaviour
+public class PlayerInteracter : ElympicsMonoBehaviour, IUpdatable
 {
     [Header("References")]
     [SerializeField]
@@ -54,9 +55,9 @@ public class PlayerInteracter : MonoBehaviour
         }
     }
 
-    private void Update()
+    public void ElympicsUpdate()
     {
-        Vector3 boxCenter = transform.TransformPoint(interactionPosition);
+        Vector3 boxCenter = transform.position + playerAimer.Rotation * interactionPosition;
         Vector3 halfExtents = interactionSize / 2;
         Collider[] colliders = Physics.OverlapBox(boxCenter, halfExtents, playerAimer.Rotation);
         selectedObjects.Clear();
@@ -91,11 +92,9 @@ public class PlayerInteracter : MonoBehaviour
                 minSelect = selected;
             }
         }
-        bool unselect = false;
         bool select = false;
         if (selectedObject != minSelect)
         {
-            unselect = true;
             if (minSelect == null)
             {
                 if (debugInfo)
@@ -111,13 +110,17 @@ public class PlayerInteracter : MonoBehaviour
                 }
                 select = true;
             }
+            if (selectedObject != null)
+            {
+                selectedObject.Unselect();
+            }
+            selectedObject = minSelect;
+            if (selectedObject != null && select)
+            {
+                selectedObject.Select();
+            }
         }
-        if (selectedObject != null && unselect)
-        {
-            selectedObject.Unselect();
-        }
-        selectedObject = minSelect;
-        if (selectedObject != null && select)
+        if (selectedObject != null && !selectedObject.IsSelected)
         {
             selectedObject.Select();
         }

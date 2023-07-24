@@ -8,8 +8,8 @@ public class PlayerAimer : ElympicsMonoBehaviour
     [SerializeField]
     private float sensitivity;
 
-    public Vector3 Forward => Quaternion.Euler(0, yRotation, 0) * transform.forward;
-    public Quaternion Rotation => Quaternion.Euler(0, yRotation, 0);
+    public Vector3 Forward =>  Rotation * transform.forward;
+    public Quaternion Rotation => Quaternion.FromToRotation(transform.forward, new Vector3(aimDirectionSynch.Value.x, 0, aimDirectionSynch.Value.y));
     public float YRotation => yRotation;
     public event System.Action<Vector2> AimDirectionChangedEvent;
 
