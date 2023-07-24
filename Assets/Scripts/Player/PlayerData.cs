@@ -3,20 +3,18 @@ using System.Collections.Generic;
 using UnityEngine;
 using Elympics;
 
-public class PlayerData : MonoBehaviour
+public class PlayerData : ElympicsMonoBehaviour, IInitializable
 {
-    public enum PlayerColor { Blue, Green, Yellow, Pink, None};
+    public enum PlayerColor { None, Blue, Green, Yellow, Pink};
 
     [SerializeField]
-    private int playerId;
-    public int PlayerId => playerId;
-    public ElympicsPlayer Player => ElympicsPlayer.FromIndex(playerId);
+    private MeshRenderer meshRenderer;
 
-    [SerializeField]
-    private PlayerColor playerColor;
-    public PlayerColor PlayerColorEnum => playerColor;
-    public Color Color => PlayerColorToColor(playerColor);
-    public int PlayerColorInt => (int)playerColor;
+    public int PlayerId { private set; get; }
+    public ElympicsPlayer Player { private set; get; }
+    public PlayerColor PlayerColorEnum { private set; get; }
+    public Color Color => PlayerColorToColor(PlayerColorEnum);
+    public int PlayerColorInt => (int)PlayerColorEnum;
 
     public static Color PlayerColorToColor(PlayerColor playerColor)
     {
@@ -30,8 +28,28 @@ public class PlayerData : MonoBehaviour
                 return Color.yellow;
             case PlayerColor.Pink:
                 return Color.magenta;
+            case PlayerColor.None:
+                return Color.red;
             default:
                 return Color.red;
         }
+    }
+
+    public void Initialize()
+    {
+        Player = PredictableFor;
+        PlayerId = (int)PredictableFor;
+        if (PlayerId < 0)
+        {
+            PlayerColorEnum = PlayerColor.None;
+        }
+        else
+        {
+            PlayerColorEnum = (PlayerColor)(PlayerId + 1);
+        }
+
+        Material material = new Material(meshRenderer.material);
+        material.color = Color;
+        meshRenderer.material = material;
     }
 }

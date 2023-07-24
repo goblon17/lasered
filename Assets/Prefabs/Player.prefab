@@ -22,8 +22,9 @@ GameObject:
   - component: {fileID: 3939911776945045731}
   - component: {fileID: 3939911776945045730}
   - component: {fileID: 6510184260292340874}
+  - component: {fileID: 8424458863898833504}
   m_Layer: 0
-  m_Name: Player 0
+  m_Name: Player
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -57,7 +58,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   forceNetworkId: 0
-  networkId: 5
+  networkId: 21
   predictableFor:
     playerIndex: 0
   isUpdatableForNonOwners: 0
@@ -131,7 +132,19 @@ MonoBehaviour:
     m_ActionId: 4384e4d0-d558-4752-9cc1-b23d878b1718
     m_ActionName: Player/Look[/Mouse/delta]
   - m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 3939911776945045734}
+        m_TargetAssemblyTypeName: PlayerInputCollector, Assembly-CSharp
+        m_MethodName: PickUp
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
     m_ActionId: ef4d430e-b2e1-47c5-bfbc-535073d8153a
     m_ActionName: Player/Fire[/Mouse/leftButton]
   - m_PersistentCalls:
@@ -273,13 +286,13 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   positionConfig:
     synchronizationEnabled: 1
-    tolerance: 0.01
+    tolerance: 0
   rotationConfig:
     synchronizationEnabled: 0
     tolerance: 1
   velocityConfig:
     synchronizationEnabled: 1
-    tolerance: 0.01
+    tolerance: 0
   angularVelocityConfig:
     synchronizationEnabled: 0
     tolerance: 1
@@ -324,6 +337,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   playerMovement: {fileID: 3939911776945045728}
   playerAimer: {fileID: 3939911776945045731}
+  playerInteracter: {fileID: 8424458863898833504}
 --- !u!114 &3939911776945045728
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -349,7 +363,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 46f202ebeacc13942a3d3260e0a1d3d2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  sensitivity: 0.1
+  sensitivity: 0.05
 --- !u!114 &3939911776945045730
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -375,5 +389,21 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4a35bd9c5606fac469164a702d156d12, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  playerId: 0
-  playerColor: 0
+  meshRenderer: {fileID: 3939911776945045657}
+--- !u!114 &8424458863898833504
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3939911776945045663}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 353c5ba96812de740b8a4e5c3a7d225b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  playerAimer: {fileID: 3939911776945045731}
+  interactionPosition: {x: 0, y: 0, z: 1}
+  interactionSize: {x: 2, y: 2, z: 2}
+  drawGizmos: 1
+  debugInfo: 0

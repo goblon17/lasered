@@ -12,6 +12,8 @@ public class PlayerInputController : ElympicsMonoBehaviour, IInputHandler, IInit
     private PlayerMovement playerMovement;
     [SerializeField]
     private PlayerAimer playerAimer;
+    [SerializeField]
+    private PlayerInteracter playerInteracter;
 
     private PlayerInputCollector playerInputCollector;
     private PlayerData playerData;
@@ -50,6 +52,14 @@ public class PlayerInputController : ElympicsMonoBehaviour, IInputHandler, IInit
     {
         playerMovement.SetDirection(moveDirection);
         playerAimer.SetAimDirection(aimDirection);
+        if (playerInteracter.IsInteracting && !pickUpButton)
+        {
+            playerInteracter.StopInteracting();
+        }
+        else if (!playerInteracter.IsInteracting && pickUpButton)
+        {
+            playerInteracter.StartInteracting();
+        }
     }
 
     private void SerializeInput(IInputWriter inputSerializer)

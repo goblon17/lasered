@@ -16,8 +16,8 @@ public class Laser : ElympicsMonoBehaviour, IInitializable, IUpdatable
     private List<Vector3> positions = new List<Vector3>();
     private List<Vector3> directions = new List<Vector3>();
 
-    private ElympicsVector3 startPosition = new ElympicsVector3(comparer: new ElympicsVector3EqualityComparer(0));
-    private ElympicsVector3 startDirection = new ElympicsVector3(comparer: new ElympicsVector3EqualityComparer(0));
+    private ElympicsVector3 startPosition = new ElympicsVector3(comparer: new ElympicsVector3EqualityComparer(Mathf.Epsilon));
+    private ElympicsVector3 startDirection = new ElympicsVector3(comparer: new ElympicsVector3EqualityComparer(Mathf.Epsilon));
 
     private ElympicsInt playerColorInt = new ElympicsInt((int)PlayerData.PlayerColor.None);
 
@@ -112,6 +112,7 @@ public class Laser : ElympicsMonoBehaviour, IInitializable, IUpdatable
 
     public void Initialize()
     {
+        ChangeColor(playerColorInt.Value);
         playerColorInt.ValueChanged += (_, e) => ChangeColor(e);
     }
 

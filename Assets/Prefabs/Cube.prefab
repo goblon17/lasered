@@ -129,6 +129,7 @@ GameObject:
   - component: {fileID: 8539186987523769016}
   - component: {fileID: 1186706074923522813}
   - component: {fileID: 6977612802004780602}
+  - component: {fileID: 5248765769470051957}
   m_Layer: 7
   m_Name: Cube
   m_TagString: Untagged
@@ -165,9 +166,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   forceNetworkId: 0
-  networkId: 10
+  networkId: 25
   predictableFor:
-    playerIndex: -2
+    playerIndex: -3
   isUpdatableForNonOwners: 0
   visibleFor:
     playerIndex: -3
@@ -274,7 +275,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   positionConfig:
     synchronizationEnabled: 1
-    tolerance: 0.001
+    tolerance: 0
   rotationConfig:
     synchronizationEnabled: 1
     tolerance: 0
@@ -297,5 +298,18 @@ MonoBehaviour:
     synchronizationEnabled: 0
     tolerance: 0
   isKinematicConfig:
-    synchronizationEnabled: 0
+    synchronizationEnabled: 1
     tolerance: 0
+--- !u!114 &5248765769470051957
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8539186987523769019}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 41fea6e7e79a64c4bb4ad07a6e685e1b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  pickupOffset: {x: 0, y: 0, z: 1.5}
