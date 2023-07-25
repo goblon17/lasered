@@ -10,8 +10,11 @@ public class UIHudController : Singleton<UIHudController>
     private UICursorController cursorController;
     [SerializeField]
     private UIInteractionTooltip interactionTooltip;
+    [SerializeField]
+    private GameObject deathScreen;
 
     public UIInteractionTooltip InteractionTooltip => interactionTooltip;
+    public GameObject DeathScreen => deathScreen;
 
     private void Start()
     {
@@ -28,8 +31,12 @@ public class UIHudController : Singleton<UIHudController>
     private void RegisterPlayer()
     {
         PlayerData playerData = ClientProvider.Instance.ClientPlayer;
-        playerData.GetComponent<PlayerHealth>().HealthChangedEvent += healthBar.ChangeValue;
+        PlayerHealth playerHealth = playerData.GetComponent<PlayerHealth>();
+        playerHealth.HealthChangedEvent += healthBar.ChangeValue;
         //healthBar.ChangeValue();
+        playerHealth.IsDeadChangedEvent += (e) => deathScreen.SetActive(e);
+        deathScreen.SetActive(false);
+
 
         playerData.GetComponent<PlayerAimer>().AimDirectionChangedEvent += cursorController.SetAimDirection;
     }

@@ -15,6 +15,7 @@ public class PlayerData : ElympicsMonoBehaviour, IInitializable
     public PlayerColor PlayerColorEnum { private set; get; }
     public Color Color => PlayerColorToColor(PlayerColorEnum);
     public int PlayerColorInt => (int)PlayerColorEnum;
+    public string Name => PlayerColorEnum.ToString();
 
     public static Color PlayerColorToColor(PlayerColor playerColor)
     {
