@@ -9,4 +9,9 @@ public class MatchmakingManager : MonoBehaviour
     {
         ElympicsLobbyClient.Instance.PlayOnlineInRegion(null, null, null, "Normal");
     }
+
+    public void Quit()
+    {
+        Application.Quit();
+    }
 }

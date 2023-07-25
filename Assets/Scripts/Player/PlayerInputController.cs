@@ -35,7 +35,10 @@ public class PlayerInputController : ElympicsMonoBehaviour, IInputHandler, IInit
         {
             DeserializeInput(inputReader);
         }
-        ApplyInput();
+        if (GameStateManager.Instance.CurrentGameState.Value == (int)GameStateManager.GameState.GameplayMatchRunning)
+        {
+            ApplyInput();
+        }
     }
 
     public void OnInputForBot(IInputWriter inputSerializer)

@@ -4,7 +4,7 @@ using UnityEngine;
 using Elympics;
 using System.Linq;
 
-public class ClientProvider : ElympicsSingleton<ClientProvider>, IInitializable
+public class ClientProvider : ElympicsSingleton<ClientProvider>
 {
     public PlayerData ClientPlayer { get; private set; }
     public List<PlayerData> ClientPlayers { get; private set; }

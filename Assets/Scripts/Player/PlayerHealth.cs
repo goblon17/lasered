@@ -21,7 +21,7 @@ public class PlayerHealth : ElympicsMonoBehaviour, IInitializable
     public void Initialize()
     {
         currentHealth.ValueChanged += (_, v) => HealthChangedEvent?.Invoke(v, maxHealth);
-        currentHealth.Value = 100;
+        currentHealth.Value = maxHealth;
         isDead.ValueChanged += (_, v) => IsDeadChangedEvent?.Invoke(v);
         isDead.Value = false;
     }

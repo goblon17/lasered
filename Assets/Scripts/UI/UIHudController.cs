@@ -33,7 +33,7 @@ public class UIHudController : Singleton<UIHudController>
         PlayerData playerData = ClientProvider.Instance.ClientPlayer;
         PlayerHealth playerHealth = playerData.GetComponent<PlayerHealth>();
         playerHealth.HealthChangedEvent += healthBar.ChangeValue;
-        //healthBar.ChangeValue();
+        healthBar.ChangeValue(1, 1);
         playerHealth.IsDeadChangedEvent += (e) => deathScreen.SetActive(e);
         deathScreen.SetActive(false);
 

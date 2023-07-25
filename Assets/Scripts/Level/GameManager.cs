@@ -27,6 +27,7 @@ public class GameManager : ElympicsSingleton<GameManager>, IInitializable
         foreach (PlayerData player in ClientProvider.Instance.ClientPlayers)
         {
             alivePlayers.Add(player);
+            print(player.Name);
             PlayerHealth playerHealth = player.GetComponent<PlayerHealth>();
             playerHealth.IsDeadChangedEvent += (v) =>
             {

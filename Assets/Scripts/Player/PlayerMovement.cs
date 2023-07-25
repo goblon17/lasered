@@ -18,6 +18,10 @@ public class PlayerMovement : MonoBehaviour
 
     public void SetDirection(Vector2 direction)
     {
+        if (rigidbody == null)
+        {
+            return;
+        }    
         Vector3 moveDirection = new Vector3(direction.x, 0, direction.y);
         rigidbody.velocity = moveDirection * speed;
     }

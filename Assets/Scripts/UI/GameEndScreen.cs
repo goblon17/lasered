@@ -2,6 +2,8 @@ using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
+using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 public class GameEndScreen : MonoBehaviour
 {
@@ -55,10 +57,11 @@ public class GameEndScreen : MonoBehaviour
         {
 			screenCanvasGroup.alpha = 1;
 			UIHudController.Instance.DeathScreen.SetActive(false);
+			CursorManager.Instance.UnlockCursor();
         }
 		else
         {
 			screenCanvasGroup.alpha = 0;
-        }
+		}
 	}
 }

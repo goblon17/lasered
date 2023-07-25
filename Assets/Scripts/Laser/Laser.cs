@@ -90,11 +90,15 @@ public class Laser : ElympicsMonoBehaviour, IInitializable, IUpdatable
                 positions.Add(cubeReflection.Point);
                 directions.Add(cubeReflection.Direction);
             }
+            else if (hitInfo.collider.CompareTag("Reflective"))
+            {
+                positions.Add(hitInfo.point);
+                directions.Add(Vector3.Reflect(directions[i], hitInfo.normal));
+            }
             else
             {
                 positions.Add(hitInfo.point);
                 directions.Add(Vector3.zero);
-                //directions.Add(Vector3.Reflect(directions[i], hitInfo.normal));
             }
         }
         else

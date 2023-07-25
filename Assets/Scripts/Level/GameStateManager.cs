@@ -1,9 +1,10 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using Elympics;
 
-public class GameStateManager : ElympicsSingleton<GameStateManager>, IInitializable, IUpdatable
+public class GameStateManager : ElympicsSingleton<GameStateManager>, IUpdatable
 {
     public enum GameState
     {
@@ -12,11 +13,27 @@ public class GameStateManager : ElympicsSingleton<GameStateManager>, IInitializa
         MatchEnded
     }
 
+    [SerializeField]
+    private float endGameDelay;
+
+    public ElympicsBool ShouldStart { get; private set; } = new ElympicsBool(false);
     public ElympicsInt CurrentGameState { get; private set; } = new ElympicsInt((int)GameState.Prematch);
 
-    public void Initialize()
+    private void Start()
     {
-        GameInitializer.Instance.InitializeMatch(() => ChangeGameState(GameState.GameplayMatchRunning));
+        ClientProvider.Instance.OnInitializeEvent += (_, _) => GameInitializer.Instance.InitializeMatch(() => ChangeGameState(GameState.GameplayMatchRunning));
+        ShouldStart.ValueChanged += (_, v) =>
+        {
+            if (v)
+            {
+                ClientProvider.Instance.Initialize();
+            }
+        };
+    }
+
+    public void StartGame()
+    {
+        ShouldStart.Value = true;
     }
 
     private void ChangeGameState(GameState newGameState)
@@ -29,6 +46,14 @@ public class GameStateManager : ElympicsSingleton<GameStateManager>, IInitializa
         if (GameManager.Instance.WinnerPlayerId.Value >= 0 && (GameState)CurrentGameState.Value == GameState.GameplayMatchRunning)
         {
             ChangeGameState(GameState.MatchEnded);
+            StartCoroutine(DelayedEndGame());
         }
+    }
+
+    private IEnumerator DelayedEndGame()
+    {
+        yield return new WaitForSeconds(3);
+        SceneManager.LoadScene(0);
+        Elympics.EndGame();
     }
 }
