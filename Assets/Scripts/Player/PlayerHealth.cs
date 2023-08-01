@@ -40,4 +40,14 @@ public class PlayerHealth : ElympicsMonoBehaviour, IInitializable
         }
         return currentHealth.Value <= 0;
     }
+
+    public void Kill()
+    {
+        if (!Elympics.IsServer)
+        {
+            return;
+        }
+
+        TakeDamage(maxHealth);
+    }
 }

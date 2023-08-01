@@ -53,4 +53,14 @@ public class Emitter : ElympicsMonoBehaviour, IUpdatable
     {
         ShootLaser();
     }
+
+    public void ChangeColor(int playerId)
+    {
+        ChangeColor((PlayerData.PlayerColor)(playerId + 1));
+    }
+
+    public void ChangeColor(PlayerData.PlayerColor playerColor)
+    {
+        this.playerColor = playerColor;
+    }
 }

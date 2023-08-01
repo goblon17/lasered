@@ -46,7 +46,7 @@ public class GameEndScreen : MonoBehaviour
 
 	private void SetWinnerInfo(int lastValue, int newValue)
 	{
-		PlayerData winnerData = ClientProvider.Instance.GetPlayerById(newValue);
+		PlayerData winnerData = ClientProvider.Instance.GetPlayer(newValue);
 
 		gameWinnerText.text = winText.Replace(playerKey, winnerData.Name);
 	}

@@ -68,7 +68,7 @@ public class CubeInteraction : ElympicsMonoBehaviour, IInteractable, IUpdatable
 
         if (playerData == null)
         {
-            playerData = ClientProvider.Instance.GetPlayerById(playerId.Value);
+            playerData = ClientProvider.Instance.GetPlayer(playerId.Value);
             if (playerData != null && playerAimer == null)
             {
                 playerAimer = playerData.GetComponent<PlayerAimer>();

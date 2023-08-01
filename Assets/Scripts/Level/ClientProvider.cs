@@ -24,8 +24,13 @@ public class ClientProvider : ElympicsSingleton<ClientProvider>
         OnInitializeEvent?.Invoke(this, null);
     }
 
-    public PlayerData GetPlayerById(int playerId)
+    public PlayerData GetPlayer(int playerId)
     { 
         return ClientPlayers.FirstOrDefault(x => x.PlayerId == playerId);
+    }
+
+    public PlayerData GetPlayer(ElympicsPlayer elympicsPlayer)
+    {
+        return ClientPlayers.FirstOrDefault(x => x.Player == elympicsPlayer);
     }
 }
