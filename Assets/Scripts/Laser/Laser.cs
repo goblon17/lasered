@@ -24,6 +24,9 @@ public class Laser : ElympicsMonoBehaviour, IInitializable, IUpdatable
     private LineRenderer lineRenderer;
     private float damage = 0;
 
+    private Receiver currentlyActivatedReceiver = null;
+    private int currentReceiverArgument;
+
     private void Awake()
     {
         lineRenderer = GetComponent<LineRenderer>();
@@ -73,6 +76,8 @@ public class Laser : ElympicsMonoBehaviour, IInitializable, IUpdatable
         }
         if (Physics.Raycast(positions[i], directions[i], out RaycastHit hitInfo, maxDistance, laserLayerMask))
         {
+            bool endedOnReceiver = false;
+
             if (hitInfo.collider.TryGetComponent(out PlayerData playerData))
             {
                 if (playerData.PlayerColorInt != playerColorInt.Value)
@@ -90,6 +95,28 @@ public class Laser : ElympicsMonoBehaviour, IInitializable, IUpdatable
                 positions.Add(cubeReflection.Point);
                 directions.Add(cubeReflection.Direction);
             }
+            else if (hitInfo.collider.TryGetComponent(out Receiver receiver))
+            {
+                positions.Add(receiver.Point);
+                directions.Add(Vector3.zero);
+                if (currentlyActivatedReceiver != receiver)
+                {
+                    if (currentlyActivatedReceiver != null)
+                    {
+                        currentlyActivatedReceiver.Deactivate();
+                    }
+                    currentReceiverArgument = playerColorInt.Value - 1;
+                    receiver.Activate(currentReceiverArgument);
+                    currentlyActivatedReceiver = receiver;
+                }
+                else if (currentReceiverArgument != playerColorInt.Value - 1)
+                {
+                    currentReceiverArgument = playerColorInt.Value - 1;
+                    currentlyActivatedReceiver.Deactivate();
+                    currentlyActivatedReceiver.Activate(currentReceiverArgument);
+                }
+                endedOnReceiver = true;
+            }
             else if (hitInfo.collider.CompareTag("Reflective"))
             {
                 positions.Add(hitInfo.point);
@@ -100,11 +127,23 @@ public class Laser : ElympicsMonoBehaviour, IInitializable, IUpdatable
                 positions.Add(hitInfo.point);
                 directions.Add(Vector3.zero);
             }
+
+            if (!endedOnReceiver && directions[directions.Count - 1] == Vector3.zero && currentlyActivatedReceiver != null)
+            {
+                currentlyActivatedReceiver.Deactivate();
+                currentlyActivatedReceiver = null;
+            }
         }
         else
         {
             positions.Add(positions[i] + directions[i] * maxDistance);
             directions.Add(Vector3.zero);
+
+            if (currentlyActivatedReceiver != null)
+            {
+                currentlyActivatedReceiver.Deactivate();
+                currentlyActivatedReceiver = null;
+            }
         }
     }
 

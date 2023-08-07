@@ -35,7 +35,7 @@ public class Button : MonoBehaviour, IInteractable
 
     private void OnDrawGizmosSelected()
     {
-        Gizmos.color = Color.red;
+        Gizmos.color = Color.green;
         for (int i = 0; i < interactEvent.GetPersistentEventCount(); i++)
         {
             Object o = interactEvent.GetPersistentTarget(i);

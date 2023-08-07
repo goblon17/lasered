@@ -16,7 +16,7 @@ public class CubeReflection : MonoBehaviour
     [SerializeField]
     private float sphereRadius;
 
-    public Vector3 Point => transform.position + point;
+    public Vector3 Point => transform.TransformPoint(point);
     public Vector3 Direction => transform.TransformDirection(direction).normalized;
 
     private void OnDrawGizmos()
@@ -26,7 +26,7 @@ public class CubeReflection : MonoBehaviour
             return;
         }
         Gizmos.color = PlayerData.PlayerColorToColor(PlayerData.PlayerColor.None);
-        Gizmos.DrawSphere(transform.position + point, sphereRadius);
-        Gizmos.DrawLine(transform.position + point, transform.position + point + transform.TransformDirection(direction).normalized);
+        Gizmos.DrawSphere(transform.TransformPoint(point), sphereRadius);
+        Gizmos.DrawLine(transform.TransformPoint(point), transform.TransformPoint(point) + transform.TransformDirection(direction).normalized);
     }
 }
