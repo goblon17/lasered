@@ -174,10 +174,13 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   maxReflectionCount: 10
+  childLasersLimit: 10
   laserLayerMask:
     serializedVersion: 2
     m_Bits: 65
   maxDistance: 1000
+  laserPrefabResourcePath: Prefabs/Laser
+  lineRenderer: {fileID: 3460627217994769844}
 --- !u!114 &753814661200870194
 MonoBehaviour:
   m_ObjectHideFlags: 0
