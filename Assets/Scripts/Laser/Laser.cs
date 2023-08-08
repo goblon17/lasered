@@ -46,6 +46,13 @@ public class Laser : ElympicsMonoBehaviour, IInitializable, IUpdatable
         this.damage = damage;
     }
 
+    public void Stop()
+    {
+        lineRenderer.positionCount = 0;
+        startPosition.Value = Vector3.zero;
+        startDirection.Value = Vector3.zero;
+    }
+
     private void ChangeColor(int color)
     {
         lineRenderer.startColor = PlayerData.PlayerColorToColor((PlayerData.PlayerColor)color);

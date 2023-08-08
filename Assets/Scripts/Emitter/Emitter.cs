@@ -18,6 +18,8 @@ public class Emitter : ElympicsMonoBehaviour, IUpdatable
     private PlayerData.PlayerColor playerColor;
     [SerializeField]
     private float damage;
+    [SerializeField]
+    private bool shootOnAwake;
 
     [Header("Debug")]
     [SerializeField]
@@ -26,6 +28,8 @@ public class Emitter : ElympicsMonoBehaviour, IUpdatable
     private float sphereRadius;
 
     private Laser laser = null;
+
+    private bool isShooting = false;
 
     private Vector3 emissionDirection => Quaternion.Euler(0, emissionRotation, 0) * transform.forward;
 
@@ -36,6 +40,15 @@ public class Emitter : ElympicsMonoBehaviour, IUpdatable
             laser = ElympicsInstantiate(laserPrefabResourcePath, ElympicsPlayer.All).GetComponent<Laser>();
         }
         laser.Begin(transform.TransformPoint(emissionPosition), emissionDirection, playerColor, damage);
+    }
+
+    private void StopLaser()
+    {
+        if (laser == null)
+        {
+            return;
+        }
+        laser.Stop();
     }
 
     private void OnDrawGizmos()
@@ -51,7 +64,14 @@ public class Emitter : ElympicsMonoBehaviour, IUpdatable
 
     public void ElympicsUpdate()
     {
-        ShootLaser();
+        if (isShooting)
+        {
+            ShootLaser();
+        }
+        else
+        {
+            StopLaser();
+        }
     }
 
     public void ChangeColor(int playerId)
@@ -62,5 +82,23 @@ public class Emitter : ElympicsMonoBehaviour, IUpdatable
     public void ChangeColor(PlayerData.PlayerColor playerColor)
     {
         this.playerColor = playerColor;
+    }
+
+    public void StartShooting()
+    {
+        isShooting = true;
+    }
+
+    public void StopShooting()
+    {
+        isShooting = false;
+    }
+
+    private void Awake()
+    {
+        if (shootOnAwake)
+        {
+            isShooting = true;
+        }
     }
 }

@@ -1081,6 +1081,10 @@ PrefabInstance:
       propertyPath: playerColor
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 2993112716597613952, guid: 10e91bef8f3f26b4aacb5f3d9b2fd462, type: 3}
+      propertyPath: shootOnAwake
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 2993112716597613953, guid: 10e91bef8f3f26b4aacb5f3d9b2fd462, type: 3}
       propertyPath: networkId
       value: 50
@@ -4625,6 +4629,10 @@ PrefabInstance:
       propertyPath: playerColor
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 2993112716597613952, guid: 10e91bef8f3f26b4aacb5f3d9b2fd462, type: 3}
+      propertyPath: shootOnAwake
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 2993112716597613953, guid: 10e91bef8f3f26b4aacb5f3d9b2fd462, type: 3}
       propertyPath: networkId
       value: 45
@@ -4929,9 +4937,33 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+      - m_Target: {fileID: 1718545841}
+        m_TargetAssemblyTypeName: Emitter, Assembly-CSharp
+        m_MethodName: StartShooting
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
   deactivateEvent:
     m_PersistentCalls:
       m_Calls:
+      - m_Target: {fileID: 1718545841}
+        m_TargetAssemblyTypeName: Emitter, Assembly-CSharp
+        m_MethodName: StopShooting
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
       - m_Target: {fileID: 1718545841}
         m_TargetAssemblyTypeName: Emitter, Assembly-CSharp
         m_MethodName: ChangeColor
@@ -5304,6 +5336,18 @@ MonoBehaviour:
   interactEvent:
     m_PersistentCalls:
       m_Calls:
+      - m_Target: {fileID: 265241980}
+        m_TargetAssemblyTypeName: Emitter, Assembly-CSharp
+        m_MethodName: StartShooting
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
       - m_Target: {fileID: 265241980}
         m_TargetAssemblyTypeName: Emitter, Assembly-CSharp
         m_MethodName: ChangeColor

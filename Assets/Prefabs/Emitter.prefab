@@ -145,5 +145,6 @@ MonoBehaviour:
   emissionRotation: 0
   playerColor: 0
   damage: 1
+  shootOnAwake: 1
   drawGizmos: 1
   sphereRadius: 0.1

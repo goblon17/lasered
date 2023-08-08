@@ -20,14 +20,21 @@ public class Receiver : MonoBehaviour
 
     public Vector3 Point => transform.TransformPoint(endPoint);
 
+    private int activationCounter = 0;
+
     public void Activate(int playerId)
     {
+        activationCounter++;
         activateEvent.Invoke(playerId);
     }
 
     public void Deactivate()
     {
-        deactivateEvent.Invoke();
+        activationCounter--;
+        if (activationCounter <= 0)
+        {
+            deactivateEvent.Invoke();
+        }
     }
 
     private void OnDrawGizmosSelected()
