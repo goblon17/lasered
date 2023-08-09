@@ -45,10 +45,10 @@ public class CubeDiffraction : MonoBehaviour
             case > -180 and <= -60:
                 diffraction.StartPoint = transform.TransformPoint(pointRight);
                 diffraction.StartDirection = Vector3.zero;
-                diffraction.EndPoint = transform.TransformPoint(pointLeft);
-                diffraction.EndDirection = transform.TransformDirection(directionLeft);
-                diffraction.AdditionalPoint = transform.TransformPoint(pointFront);
-                diffraction.AdditionalDirection = transform.TransformDirection(directionFront);
+                diffraction.EndPoint = transform.TransformPoint(pointFront);
+                diffraction.EndDirection = transform.TransformDirection(directionFront);
+                diffraction.AdditionalPoint = transform.TransformPoint(pointLeft);
+                diffraction.AdditionalDirection = transform.TransformDirection(directionLeft);
                 break;
             case > -60 and <= 60:
                 diffraction.StartPoint = transform.TransformPoint(pointFront);

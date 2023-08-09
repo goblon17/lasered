@@ -50,11 +50,14 @@ public class Laser : ElympicsMonoBehaviour, IInitializable, IUpdatable
 
     public void Begin(Vector3 pos, Vector3 dir, PlayerData.PlayerColor playerColor, float damage)
     {
-        if (lineRenderer == null)
+        if (this != null)
         {
-            lineRenderer = GetComponent<LineRenderer>();
+            if (lineRenderer == null)
+            {
+                lineRenderer = GetComponent<LineRenderer>();
+            }
+            lineRenderer.positionCount = 0;
         }
-        lineRenderer.positionCount = 0;
         playerColorInt.Value = (int)playerColor;
         startPosition.Value = pos;
         startDirection.Value = dir;
@@ -63,11 +66,14 @@ public class Laser : ElympicsMonoBehaviour, IInitializable, IUpdatable
 
     public void Stop()
     {
-        if (lineRenderer == null)
+        if (this != null)
         {
-            lineRenderer = GetComponent<LineRenderer>();
+            if (lineRenderer == null)
+            {
+                lineRenderer = GetComponent<LineRenderer>();
+            }
+            lineRenderer.positionCount = 0;
         }
-        lineRenderer.positionCount = 0;
         startPosition.Value = Vector3.zero;
         startDirection.Value = Vector3.zero;
     }
@@ -205,7 +211,10 @@ public class Laser : ElympicsMonoBehaviour, IInitializable, IUpdatable
         {
             if (!x.InUse)
             {
-                ElympicsDestroy(x.Laser.gameObject);
+                if (Elympics.IsServer)
+                {
+                    ElympicsDestroy(x.Laser.gameObject);
+                }
             }
             return !x.InUse;
         });
