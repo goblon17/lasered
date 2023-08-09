@@ -54,7 +54,7 @@ public class PlayerInputController : ElympicsMonoBehaviour, IInputHandler, IInit
     private void ApplyInput()
     {
         playerMovement.SetDirection(moveDirection);
-        playerAimer.SetAimDirection(aimDirection);
+        playerAimer.SetAimDirectionSynch(aimDirection);
         if (playerInteracter.IsInteracting && !pickUpButton)
         {
             playerInteracter.StopInteracting();

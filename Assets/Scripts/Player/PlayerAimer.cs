@@ -18,16 +18,25 @@ public class PlayerAimer : ElympicsMonoBehaviour
     private Vector2 aimDirection = Vector2.zero;
     private float yRotation = 0;
 
-    public void SetAimDirection(Vector2 aimDir)
+    public Vector2 SetAimDirection(Vector2 aimDir)
     {
         aimDirection = aimDirectionSynch.Value;
         aimDirection += aimDir * sensitivity;
-        aimDirection = Vector2.ClampMagnitude(aimDirection, 1);
+        //aimDirection = Vector2.ClampMagnitude(aimDirection, 1);
+        aimDirection.x = Mathf.Clamp(aimDirection.x, -Screen.width / 2, Screen.width / 2);
+        aimDirection.y = Mathf.Clamp(aimDirection.y, -Screen.height / 2, Screen.height / 2);
         AimDirectionChangedEvent?.Invoke(aimDirection);
         yRotation = -Vector2.SignedAngle(new Vector2(transform.forward.x, transform.forward.z), aimDirection);
         aimDirectionSynch.Value = aimDirection;
+        return aimDirection;
     }
 
+    public void SetAimDirectionSynch(Vector2 aimDir)
+    {
+        yRotation = -Vector2.SignedAngle(new Vector2(transform.forward.x, transform.forward.z), aimDir);
+        aimDirectionSynch.Value = aimDir;
+        AimDirectionChangedEvent?.Invoke(aimDirectionSynch.Value);
+    }
 
     private void OnDrawGizmos()
     {

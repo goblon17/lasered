@@ -324,6 +324,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: da38d0ce0c9707a469f4f24a71554099, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  playerAimer: {fileID: 3939911776945045731}
 --- !u!114 &3939911776945045735
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -364,7 +365,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 46f202ebeacc13942a3d3260e0a1d3d2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  sensitivity: 0.01
+  sensitivity: 1
 --- !u!114 &3939911776945045730
 MonoBehaviour:
   m_ObjectHideFlags: 0
