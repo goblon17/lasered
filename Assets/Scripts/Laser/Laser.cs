@@ -243,4 +243,13 @@ public class Laser : ElympicsMonoBehaviour, IInitializable, IUpdatable
         ResetChildLasers();
         CalculateLaserPath();
     }
+
+    private void OnDestroy()
+    {
+        if (currentlyActivatedReceiver != null)
+        {
+            currentlyActivatedReceiver.Deactivate();
+            currentlyActivatedReceiver = null;
+        }
+    }
 }

@@ -31,6 +31,9 @@ public class Emitter : ElympicsMonoBehaviour, IUpdatable
 
     private bool isShooting = false;
 
+    private new Renderer renderer;
+    private ElympicsInt colorMaterialInt = new ElympicsInt(-1);
+
     private Vector3 emissionDirection => Quaternion.Euler(0, emissionRotation, 0) * transform.forward;
 
     private void ShootLaser()
@@ -40,6 +43,7 @@ public class Emitter : ElympicsMonoBehaviour, IUpdatable
             laser = ElympicsInstantiate(laserPrefabResourcePath, ElympicsPlayer.All).GetComponent<Laser>();
         }
         laser.Begin(transform.TransformPoint(emissionPosition), emissionDirection, playerColor, damage);
+        colorMaterialInt.Value = (int)playerColor;
     }
 
     private void StopLaser()
@@ -49,6 +53,7 @@ public class Emitter : ElympicsMonoBehaviour, IUpdatable
             return;
         }
         laser.Stop();
+        colorMaterialInt.Value = -1;
     }
 
     private void OnDrawGizmos()
@@ -99,6 +104,25 @@ public class Emitter : ElympicsMonoBehaviour, IUpdatable
         if (shootOnAwake)
         {
             isShooting = true;
+        }
+        renderer = GetComponent<Renderer>();
+        Color c = renderer.materials[2].color;
+        c.a = 0;
+        renderer.materials[2].color = c;
+        colorMaterialInt.ValueChanged += (_, v) => ChangeMaterialColor(v);
+    }
+
+    private void ChangeMaterialColor(int val)
+    {
+        if (val == -1)
+        {
+            Color c = renderer.materials[2].color;
+            c.a = 0;
+            renderer.materials[2].color = c;
+        }
+        else
+        {
+            renderer.materials[2].color = PlayerData.PlayerColorToColor((PlayerData.PlayerColor)val);
         }
     }
 }

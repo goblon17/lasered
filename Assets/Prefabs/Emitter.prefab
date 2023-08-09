@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 2993112716597613982}
   - component: {fileID: 2993112716597613983}
   - component: {fileID: 2993112716597613980}
-  - component: {fileID: 2993112716597613981}
+  - component: {fileID: 8085351643510609}
   - component: {fileID: 2993112716597613953}
   - component: {fileID: 2993112716597613952}
   m_Layer: 0
@@ -30,8 +30,8 @@ Transform:
   m_GameObject: {fileID: 2993112716597613978}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 44.83, y: 1, z: 4}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
+  m_LocalScale: {x: 0.75, y: 0.75, z: 0.75}
+  m_ConstrainProportionsScale: 1
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
@@ -43,7 +43,7 @@ MeshFilter:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2993112716597613978}
-  m_Mesh: {fileID: -5495902117074765545, guid: cd86b338da4e8554d9ca292c8ff18ce8, type: 3}
+  m_Mesh: {fileID: -462981019419857548, guid: ddf0fd8b4e968b143bd0f5569a7cafe9, type: 3}
 --- !u!23 &2993112716597613980
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -64,7 +64,9 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 36ed7799dcf150b429481f72f4f36792, type: 2}
+  - {fileID: 2100000, guid: 853be47511797804f8b6f1e8e9a95757, type: 2}
+  - {fileID: 2100000, guid: 141bba0c66f5ee845ba06d2673dce3f9, type: 2}
+  - {fileID: 2100000, guid: 4b302d2989ae4ce4387d92c362bf7209, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -86,7 +88,7 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!65 &2993112716597613981
+--- !u!65 &8085351643510609
 BoxCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -97,8 +99,8 @@ BoxCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 1, y: 1, z: 1}
-  m_Center: {x: 0, y: 0, z: 0}
+  m_Size: {x: 1.4321204, y: 1.4574225, z: 2.0251575}
+  m_Center: {x: 0, y: 0.7178941, z: 0.027421325}
 --- !u!114 &2993112716597613953
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -112,7 +114,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   forceNetworkId: 0
-  networkId: 37
+  networkId: 68
   predictableFor:
     playerIndex: -2
   isUpdatableForNonOwners: 0
@@ -141,7 +143,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   laserPrefabResourcePath: Prefabs/Laser
-  emissionPosition: {x: 0, y: 0, z: 0.5}
+  emissionPosition: {x: 0, y: 0.995, z: 0.92}
   emissionRotation: 0
   playerColor: 0
   damage: 1
