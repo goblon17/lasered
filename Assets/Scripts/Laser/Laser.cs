@@ -161,7 +161,7 @@ public class Laser : ElympicsMonoBehaviour, IInitializable, IUpdatable
                 {
                     if (currentlyActivatedReceiver != null)
                     {
-                        currentlyActivatedReceiver.Deactivate();
+                        currentlyActivatedReceiver.Deactivate(currentReceiverArgument);
                     }
                     currentReceiverArgument = playerColorInt.Value - 1;
                     receiver.Activate(currentReceiverArgument);
@@ -169,8 +169,8 @@ public class Laser : ElympicsMonoBehaviour, IInitializable, IUpdatable
                 }
                 else if (currentReceiverArgument != playerColorInt.Value - 1)
                 {
+                    currentlyActivatedReceiver.Deactivate(currentReceiverArgument);
                     currentReceiverArgument = playerColorInt.Value - 1;
-                    currentlyActivatedReceiver.Deactivate();
                     currentlyActivatedReceiver.Activate(currentReceiverArgument);
                 }
                 endedOnReceiver = true;
@@ -188,7 +188,7 @@ public class Laser : ElympicsMonoBehaviour, IInitializable, IUpdatable
 
             if (!endedOnReceiver && directions[directions.Count - 1] == Vector3.zero && currentlyActivatedReceiver != null)
             {
-                currentlyActivatedReceiver.Deactivate();
+                currentlyActivatedReceiver.Deactivate(currentReceiverArgument);
                 currentlyActivatedReceiver = null;
             }
         }
@@ -199,7 +199,7 @@ public class Laser : ElympicsMonoBehaviour, IInitializable, IUpdatable
 
             if (currentlyActivatedReceiver != null)
             {
-                currentlyActivatedReceiver.Deactivate();
+                currentlyActivatedReceiver.Deactivate(currentReceiverArgument);
                 currentlyActivatedReceiver = null;
             }
         }
@@ -248,7 +248,7 @@ public class Laser : ElympicsMonoBehaviour, IInitializable, IUpdatable
     {
         if (currentlyActivatedReceiver != null)
         {
-            currentlyActivatedReceiver.Deactivate();
+            currentlyActivatedReceiver.Deactivate(currentReceiverArgument);
             currentlyActivatedReceiver = null;
         }
     }

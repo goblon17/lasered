@@ -10,7 +10,7 @@ public class Receiver : MonoBehaviour
     [SerializeField]
     private IntEvent activateEvent;
     [SerializeField]
-    private UnityEvent deactivateEvent;
+    private IntEvent deactivateEvent;
 
     [Header("Debug")]
     [SerializeField]
@@ -20,20 +20,31 @@ public class Receiver : MonoBehaviour
 
     public Vector3 Point => transform.TransformPoint(endPoint);
 
-    private int activationCounter = 0;
+    private Dictionary<int, int> activationCounter = new Dictionary<int, int>();
 
     public void Activate(int playerId)
     {
-        activationCounter++;
+        if (!activationCounter.ContainsKey(playerId))
+        {
+            activationCounter[playerId] = 0;
+        }
+        activationCounter[playerId]++;
         activateEvent.Invoke(playerId);
     }
 
-    public void Deactivate()
+    public void Deactivate(int playerId)
     {
-        activationCounter--;
-        if (activationCounter <= 0)
+        if (!activationCounter.ContainsKey(playerId))
         {
-            deactivateEvent.Invoke();
+            activationCounter[playerId] = 0;
+        }
+        else
+        {
+            activationCounter[playerId]--;
+        }
+        if (activationCounter[playerId] <= 0)
+        {
+            deactivateEvent.Invoke(playerId);
         }
     }
 
