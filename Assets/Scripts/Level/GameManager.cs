@@ -43,6 +43,12 @@ public class GameManager : ElympicsSingleton<GameManager>, IInitializable
             };
             playerScores[player.PlayerId] = 0;
         }
+
+        foreach (Receiver receiver in winReceivers)
+        {
+            receiver.ActivateEvent.AddListener(IncrementScore);
+            receiver.DeactivateEvent.AddListener(DecrementScore);
+        }
     }
 
     private void HandleDeath(PlayerData playerData)

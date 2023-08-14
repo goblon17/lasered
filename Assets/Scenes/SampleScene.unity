@@ -720,7 +720,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0d2743f0aa47e844891e9edde90d4451, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  endGameDelay: 3
 --- !u!114 &115751600
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1490,8 +1489,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   gameWinnerText: {fileID: 1653128026}
   screenCanvasGroup: {fileID: 1855755247}
-  winText: <Name> won the game!
+  winText: '<Name> won the game,
+
+    big surprise!'
   playerKey: <Name>
+  endGameDelay: 5
 --- !u!1001 &477926466
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -5903,11 +5905,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5525489476554334935, guid: d7390188d40a48947820269c255c9fba, type: 3}
       propertyPath: activateEvent.m_PersistentCalls.m_Calls.Array.size
-      value: 3
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 5525489476554334935, guid: d7390188d40a48947820269c255c9fba, type: 3}
       propertyPath: deactivateEvent.m_PersistentCalls.m_Calls.Array.size
-      value: 3
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 5525489476554334935, guid: d7390188d40a48947820269c255c9fba, type: 3}
       propertyPath: activateEvent.m_PersistentCalls.m_Calls.Array.data[2].m_Mode

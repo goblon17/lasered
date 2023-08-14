@@ -18,6 +18,9 @@ public class Receiver : MonoBehaviour
     [SerializeField]
     private float sphereRadius;
 
+    public IntEvent ActivateEvent => activateEvent;
+    public IntEvent DeactivateEvent => deactivateEvent;
+
     public Vector3 Point => transform.TransformPoint(endPoint);
 
     private Dictionary<int, int> activationCounter = new Dictionary<int, int>();

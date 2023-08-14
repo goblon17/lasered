@@ -13,9 +13,6 @@ public class GameStateManager : ElympicsSingleton<GameStateManager>, IUpdatable
         MatchEnded
     }
 
-    [SerializeField]
-    private float endGameDelay;
-
     public ElympicsBool ShouldStart { get; private set; } = new ElympicsBool(false);
     public ElympicsInt CurrentGameState { get; private set; } = new ElympicsInt((int)GameState.Prematch);
 
@@ -46,14 +43,7 @@ public class GameStateManager : ElympicsSingleton<GameStateManager>, IUpdatable
         if (GameManager.Instance.WinnerPlayerId.Value >= 0 && (GameState)CurrentGameState.Value == GameState.GameplayMatchRunning)
         {
             ChangeGameState(GameState.MatchEnded);
-            StartCoroutine(DelayedEndGame());
+            Elympics.EndGame();
         }
-    }
-
-    private IEnumerator DelayedEndGame()
-    {
-        yield return new WaitForSeconds(3);
-        SceneManager.LoadScene(0);
-        Elympics.EndGame();
     }
 }

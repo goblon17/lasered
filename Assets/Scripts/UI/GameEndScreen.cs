@@ -13,9 +13,12 @@ public class GameEndScreen : MonoBehaviour
 	private CanvasGroup screenCanvasGroup;
 
 	[SerializeField]
+    [TextArea]
 	private string winText;
 	[SerializeField]
 	private string playerKey;
+	[SerializeField]
+	private float endGameDelay;
 
 	private void Awake()
 	{
@@ -48,7 +51,10 @@ public class GameEndScreen : MonoBehaviour
 	{
 		PlayerData winnerData = ClientProvider.Instance.GetPlayer(newValue);
 
-		gameWinnerText.text = winText.Replace(playerKey, winnerData.Name);
+		if (winnerData != null)
+		{
+			gameWinnerText.text = winText.Replace(playerKey, winnerData.Name);
+		}
 	}
 
 	private void SetScreenDisplayBasedOnCurrentGameState(int lastGameState, int newGameState)
@@ -58,10 +64,17 @@ public class GameEndScreen : MonoBehaviour
 			screenCanvasGroup.alpha = 1;
 			UIHudController.Instance.DeathScreen.SetActive(false);
 			CursorManager.Instance.UnlockCursor();
+			StartCoroutine(DelayedReturnToMenu());
         }
 		else
         {
 			screenCanvasGroup.alpha = 0;
 		}
 	}
+
+	private IEnumerator DelayedReturnToMenu()
+    {
+		yield return new WaitForSeconds(endGameDelay);
+		SceneManager.LoadScene(0);
+    }
 }
