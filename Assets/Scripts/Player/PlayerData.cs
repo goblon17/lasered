@@ -17,6 +17,18 @@ public class PlayerData : ElympicsMonoBehaviour, IInitializable
     public int PlayerColorInt => (int)PlayerColorEnum;
     public string Name => PlayerColorEnum.ToString();
 
+    public static string GetNameById(int playerId)
+    {
+        try
+        {
+            return ((PlayerColor)(playerId + 1)).ToString();
+        }
+        catch
+        {
+            return "None";
+        }
+    }
+
     public static Color PlayerColorToColor(PlayerColor playerColor)
     {
         switch (playerColor)

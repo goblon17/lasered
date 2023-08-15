@@ -42,7 +42,7 @@ public class CubeDiffraction : MonoBehaviour
         float angle = Vector3.SignedAngle(Vector3.forward, localDirection, Vector3.up);
         switch (angle)
         {
-            case > -180 and <= -60:
+            case <= -60:
                 diffraction.StartPoint = transform.TransformPoint(pointRight);
                 diffraction.StartDirection = Vector3.zero;
                 diffraction.EndPoint = transform.TransformPoint(pointFront);

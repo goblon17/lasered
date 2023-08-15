@@ -173,8 +173,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7036172f6bc586c45b122dd021426055, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxReflectionCount: 10
-  childLasersLimit: 10
+  maxReflectionCount: 20
+  childLasersLimit: 20
   laserLayerMask:
     serializedVersion: 2
     m_Bits: 65
