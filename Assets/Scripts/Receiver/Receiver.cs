@@ -18,8 +18,8 @@ public class Receiver : MonoBehaviour
     [SerializeField]
     private float sphereRadius;
 
-    public IntEvent ActivateEvent => activateEvent;
-    public IntEvent DeactivateEvent => deactivateEvent;
+    public event System.Action<Receiver, int> ActivateEvent;
+    public event System.Action<Receiver, int> DeactivateEvent;
 
     public Vector3 Point => transform.TransformPoint(endPoint);
 
@@ -33,6 +33,7 @@ public class Receiver : MonoBehaviour
         }
         activationCounter[playerId]++;
         activateEvent.Invoke(playerId);
+        ActivateEvent?.Invoke(this, playerId);
     }
 
     public void Deactivate(int playerId)
@@ -48,6 +49,7 @@ public class Receiver : MonoBehaviour
         if (activationCounter[playerId] <= 0)
         {
             deactivateEvent.Invoke(playerId);
+            DeactivateEvent?.Invoke(this, playerId);
         }
     }
 

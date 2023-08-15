@@ -13,7 +13,7 @@ public class GameManager : ElympicsSingleton<GameManager>, IInitializable
 
     public ElympicsInt WinnerPlayerId { private set; get; } = new ElympicsInt(-1);
 
-    private Dictionary<int, int> playerScores = new Dictionary<int, int>();
+    private Dictionary<int, HashSet<Receiver>> playerScores = new Dictionary<int, HashSet<Receiver>>();
 
     public void Initialize()
     {
@@ -41,13 +41,13 @@ public class GameManager : ElympicsSingleton<GameManager>, IInitializable
                     HandleDeath(player);
                 }
             };
-            playerScores[player.PlayerId] = 0;
+            playerScores[player.PlayerId] = new HashSet<Receiver>();
         }
 
         foreach (Receiver receiver in winReceivers)
         {
-            receiver.ActivateEvent.AddListener(IncrementScore);
-            receiver.DeactivateEvent.AddListener(DecrementScore);
+            receiver.ActivateEvent += IncrementScore;
+            receiver.DeactivateEvent += DecrementScore;
         }
     }
 
@@ -71,18 +71,18 @@ public class GameManager : ElympicsSingleton<GameManager>, IInitializable
         {
             WinnerPlayerId.Value = alivePlayers.Single().PlayerId;
         }
-        else if (winReceivers.Count > 0 && maxScore.Value >= winReceivers.Count)
+        else if (winReceivers.Count > 0 && maxScore.Value.Count >= winReceivers.Count)
         {
             WinnerPlayerId.Value = maxScore.Key;
         }
     }
 
-    private KeyValuePair<int, int> FindMaxScore()
+    private KeyValuePair<int, HashSet<Receiver>> FindMaxScore()
     {
-        KeyValuePair<int, int> result = playerScores.First();
+        KeyValuePair<int, HashSet<Receiver>> result = playerScores.First();
         foreach (var score in playerScores)
         {
-            if (score.Value > result.Value)
+            if (score.Value.Count > result.Value.Count)
             {
                 result = score;
             }
@@ -90,24 +90,24 @@ public class GameManager : ElympicsSingleton<GameManager>, IInitializable
         return result;
     }
 
-    public void IncrementScore(int playerId)
+    public void IncrementScore(Receiver receiver, int playerId)
     {
         if (!Elympics.IsServer || !playerScores.ContainsKey(playerId))
         {
             return;
         }
 
-        playerScores[playerId]++;
+        playerScores[playerId].Add(receiver);
         CheckForWin();
     }
 
-    public void DecrementScore(int playerId)
+    public void DecrementScore(Receiver receiver, int playerId)
     {
         if (!Elympics.IsServer || !playerScores.ContainsKey(playerId))
         {
             return;
         }
 
-        playerScores[playerId]--;
+        playerScores[playerId].Remove(receiver);
     }
 }
