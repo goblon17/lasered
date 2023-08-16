@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   gameName: Lasered
   gameId: 5cab0051-7262-4777-82b2-db72b13f4233
-  gameVersion: 0.4.1
+  gameVersion: 0.4.2
   players: 4
   gameplayScene: Assets/Scenes/ThePartWhereHeKillsYou.unity
   gameplaySceneAsset: {fileID: 102900000, guid: 73150d229aa5d6845ada35e6e32407ba, type: 3}
@@ -40,7 +40,7 @@ MonoBehaviour:
   prediction: 1
   predictionLimitInTicks: 8
   detailedNetworkLog: 0
-  mode: 1
+  mode: 2
   halfRemoteMode: 0
   useWebInHalfRemote: 0
   ipForHalfRemoteMode: 127.0.0.1
@@ -57,17 +57,17 @@ MonoBehaviour:
     gameEngineData: 
     matchmakerData: []
   - userId: 1
-    isBot: 1
+    isBot: 0
     botDifficulty: 0
     gameEngineData: 
     matchmakerData: []
   - userId: 2
-    isBot: 1
+    isBot: 0
     botDifficulty: 0
     gameEngineData: 
     matchmakerData: []
   - userId: 3
-    isBot: 1
+    isBot: 0
     botDifficulty: 0
     gameEngineData: 
     matchmakerData: []

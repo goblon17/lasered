@@ -43,7 +43,7 @@ public class GameStateManager : ElympicsSingleton<GameStateManager>, IUpdatable
         if (GameManager.Instance.WinnerPlayerId.Value >= 0 && (GameState)CurrentGameState.Value == GameState.GameplayMatchRunning)
         {
             ChangeGameState(GameState.MatchEnded);
-            Elympics.EndGame();
+            this.CallDelayed(10, () => Elympics.EndGame());
         }
     }
 }
