@@ -9,10 +9,10 @@ public class GameManager : ElympicsSingleton<GameManager>, IInitializable
     [SerializeField]
     private List<Receiver> winReceivers = new List<Receiver>();
 
-    private HashSet<PlayerData> alivePlayers = new HashSet<PlayerData>();
-
     public ElympicsInt WinnerPlayerId { private set; get; } = new ElympicsInt(-1);
+    public int WinReceiversCount => winReceivers.Count;
 
+    private HashSet<PlayerData> alivePlayers = new HashSet<PlayerData>();
     private Dictionary<int, HashSet<Receiver>> playerScores = new Dictionary<int, HashSet<Receiver>>();
 
     public void Initialize()
@@ -98,6 +98,7 @@ public class GameManager : ElympicsSingleton<GameManager>, IInitializable
         }
 
         playerScores[playerId].Add(receiver);
+        PlayerSpawner.Instance.GetPlayerScoreById(playerId).Score.Value = playerScores[playerId].Count;
         CheckForWin();
     }
 
@@ -109,5 +110,6 @@ public class GameManager : ElympicsSingleton<GameManager>, IInitializable
         }
 
         playerScores[playerId].Remove(receiver);
+        PlayerSpawner.Instance.GetPlayerScoreById(playerId).Score.Value = playerScores[playerId].Count;
     }
 }
