@@ -87,6 +87,7 @@ public class Emitter : ElympicsMonoBehaviour, IUpdatable
     public void ChangeColor(PlayerData.PlayerColor playerColor)
     {
         this.playerColor = playerColor;
+        colorMaterialInt.Value = (int)playerColor;
     }
 
     public void StartShooting()
@@ -110,6 +111,7 @@ public class Emitter : ElympicsMonoBehaviour, IUpdatable
         c.a = 0;
         renderer.materials[2].color = c;
         colorMaterialInt.ValueChanged += (_, v) => ChangeMaterialColor(v);
+        colorMaterialInt.Value = (int)playerColor;
     }
 
     private void ChangeMaterialColor(int val)
