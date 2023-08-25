@@ -8,7 +8,9 @@ public class PlayerData : ElympicsMonoBehaviour, IInitializable
     public enum PlayerColor { None, Blue, Green, Yellow, Pink};
 
     [SerializeField]
-    private MeshRenderer meshRenderer;
+    private new Renderer renderer;
+    [SerializeField]
+    private int colorMaterialIndex;
 
     public int PlayerId { private set; get; }
     public ElympicsPlayer Player { private set; get; }
@@ -61,8 +63,8 @@ public class PlayerData : ElympicsMonoBehaviour, IInitializable
             PlayerColorEnum = (PlayerColor)(PlayerId + 1);
         }
 
-        Material material = new Material(meshRenderer.material);
+        Material material = renderer.materials[colorMaterialIndex];
         material.color = Color;
-        meshRenderer.material = material;
+        renderer.materials[colorMaterialIndex] = material;
     }
 }
