@@ -9,6 +9,8 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField]
     private float speed;
 
+    public float Speed => speed;
+
     private new Rigidbody rigidbody;
 
     private void Awake()

@@ -11,6 +11,8 @@ public interface IInteractable
     public void Select();
     public void Unselect();
 
+    public string AnimationType { get; }
+
     public Vector3 Position { get; }
     public bool CanBeInteractedWith { get; }
 }

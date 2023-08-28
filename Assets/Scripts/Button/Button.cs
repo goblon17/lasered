@@ -12,6 +12,8 @@ public class Button : MonoBehaviour, IInteractable
 
     public Vector3 Position => transform.position;
 
+    public string AnimationType => "Click";
+
     public bool CanBeInteractedWith => true;
 
     public void Interact(int playerId)

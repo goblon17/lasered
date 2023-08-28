@@ -177,7 +177,7 @@ MonoBehaviour:
   childLasersLimit: 20
   laserLayerMask:
     serializedVersion: 2
-    m_Bits: 65
+    m_Bits: 321
   maxDistance: 1000
   laserPrefabResourcePath: Prefabs/Laser
   lineRenderer: {fileID: 3460627217994769844}

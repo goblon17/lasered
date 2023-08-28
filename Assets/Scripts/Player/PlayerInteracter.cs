@@ -22,6 +22,8 @@ public class PlayerInteracter : ElympicsMonoBehaviour, IUpdatable
     [SerializeField]
     private bool debugInfo = false;
 
+    public event System.Action<string, bool> InteractionAnimationEvent;
+
     public bool IsInteracting => isInteracting;
 
     private bool isInteracting = false;
@@ -34,7 +36,11 @@ public class PlayerInteracter : ElympicsMonoBehaviour, IUpdatable
         if (!isInteracting)
         {
             isInteracting = true;
-            selectedObject?.Interact(GetComponent<PlayerData>().PlayerId);
+            if (selectedObject != null)
+            {
+                selectedObject.Interact(GetComponent<PlayerData>().PlayerId);
+                InteractionAnimationEvent?.Invoke(selectedObject.AnimationType, true);
+            }
             if (debugInfo)
             {
                 Debug.Log("Interacting with an object.");
@@ -47,7 +53,11 @@ public class PlayerInteracter : ElympicsMonoBehaviour, IUpdatable
         if (isInteracting)
         {
             isInteracting = false;
-            selectedObject?.StopInteracting();
+            if (selectedObject != null)
+            {
+                selectedObject.StopInteracting();
+                InteractionAnimationEvent?.Invoke(selectedObject.AnimationType, false);
+            }
             if (debugInfo)
             {
                 Debug.Log("Stoping interacting with an object.");

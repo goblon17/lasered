@@ -120,7 +120,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 5525489476554334932}
-  - component: {fileID: 5525489476554334934}
+  - component: {fileID: 426075103179118860}
   - component: {fileID: 5525489476554334935}
   m_Layer: 0
   m_Name: Collider
@@ -144,8 +144,8 @@ Transform:
   m_Father: {fileID: 5414666070406017689}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!135 &5525489476554334934
-SphereCollider:
+--- !u!136 &426075103179118860
+CapsuleCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -154,8 +154,9 @@ SphereCollider:
   m_Material: {fileID: 0}
   m_IsTrigger: 0
   m_Enabled: 1
-  serializedVersion: 2
   m_Radius: 0.4
+  m_Height: 2
+  m_Direction: 1
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!114 &5525489476554334935
 MonoBehaviour:

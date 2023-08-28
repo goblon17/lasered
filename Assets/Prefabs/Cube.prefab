@@ -11,9 +11,9 @@ GameObject:
   - component: {fileID: 4492076331884357566}
   - component: {fileID: 843453909818064949}
   - component: {fileID: 3545189143922745073}
-  - component: {fileID: 7992667107654750947}
+  - component: {fileID: 6522931772286155636}
   - component: {fileID: 2845790703314054645}
-  m_Layer: 6
+  m_Layer: 8
   m_Name: Sphere
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -85,8 +85,8 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!135 &7992667107654750947
-SphereCollider:
+--- !u!136 &6522931772286155636
+CapsuleCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -95,8 +95,9 @@ SphereCollider:
   m_Material: {fileID: 0}
   m_IsTrigger: 0
   m_Enabled: 1
-  serializedVersion: 2
   m_Radius: 0.5
+  m_Height: 4
+  m_Direction: 1
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!114 &2845790703314054645
 MonoBehaviour:
@@ -312,5 +313,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 41fea6e7e79a64c4bb4ad07a6e685e1b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  pickupOffset: {x: 0, y: -0.4, z: 1.5}
+  pickupOffset: {x: 0, y: 0, z: 1.5}
   iconOffset: {x: 0, y: 0, z: 0}

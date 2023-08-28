@@ -19,6 +19,8 @@ public class CubeInteraction : ElympicsMonoBehaviour, IInteractable, IUpdatable
     public Vector3 Position => rigidbody.position;
     public bool IsSelected { get; private set; } = false;
 
+    public string AnimationType => "Holding";
+
     public bool CanBeInteractedWith => playerId.Value < 0;
 
     private new Rigidbody rigidbody;
