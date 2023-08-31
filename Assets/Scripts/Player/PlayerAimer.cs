@@ -12,6 +12,7 @@ public class PlayerAimer : ElympicsMonoBehaviour
     public Quaternion Rotation => Quaternion.FromToRotation(transform.forward, new Vector3(aimDirectionSynch.Value.x, 0, aimDirectionSynch.Value.y));
     public float YRotation => yRotation;
     public event System.Action<Vector2> AimDirectionChangedEvent;
+    public float YRotationSynch => -Vector2.SignedAngle(new Vector2(transform.forward.x, transform.forward.z), aimDirectionSynch.Value);
 
     private ElympicsVector2 aimDirectionSynch = new ElympicsVector2(Vector2.zero, comparer: new ElympicsVector2EqualityComparer(Mathf.Epsilon));
 

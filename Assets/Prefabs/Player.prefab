@@ -445,9 +445,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 051040a98aca6ae4fb7628b303fe8675, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxHealth: 40
-  regenerationBuffer: 5
-  regenerationTime: 5
+  maxHealth: 40000
+  regenerationBuffer: 1
+  regenerationTime: 1
 --- !u!114 &6510184260292340874
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1000,9 +1000,12 @@ MonoBehaviour:
   playerAimer: {fileID: 3939911776945045731}
   playerMovement: {fileID: 3939911776945045728}
   playerInteracter: {fileID: 8424458863898833504}
+  playerHealth: {fileID: 3939911776945045730}
+  playerData: {fileID: 6510184260292340874}
   playerRigidbody: {fileID: 3939911776945045658}
   spineBone: {fileID: 3111959687044403178}
   pelvisBone: {fileID: 5888528035667482949}
+  damagedTickDuration: 2
 --- !u!114 &4552909106007936120
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -1,9 +1,10 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Elympics;
 
 [RequireComponent(typeof(Animator))]
-public class PlayerAnimationController : MonoBehaviour
+public class PlayerAnimationController : ElympicsMonoBehaviour, IUpdatable
 {
     [Header("References")]
     [SerializeField]
@@ -13,6 +14,10 @@ public class PlayerAnimationController : MonoBehaviour
     [SerializeField]
     private PlayerInteracter playerInteracter;
     [SerializeField]
+    private PlayerHealth playerHealth;
+    [SerializeField]
+    private PlayerData playerData;
+    [SerializeField]
     private Rigidbody playerRigidbody;
 
     [Header("Armarure")]
@@ -20,6 +25,10 @@ public class PlayerAnimationController : MonoBehaviour
     private Transform spineBone;
     [SerializeField]
     private Transform pelvisBone;
+
+    [Header("Config")]
+    [SerializeField]
+    private int damagedTickDuration;
 
     private Animator animator;
 
@@ -29,6 +38,10 @@ public class PlayerAnimationController : MonoBehaviour
     private Vector3 armsEuler;
     private Vector3 legsEuler;
 
+    private float previousHealth = 0;
+
+    private ElympicsInt damagedSetCounter = new ElympicsInt(0);
+
     private void Start()
     {
         animator = GetComponent<Animator>();
@@ -37,6 +50,7 @@ public class PlayerAnimationController : MonoBehaviour
         legsEuler = pelvisBone.localEulerAngles;
 
         playerInteracter.InteractionAnimationEvent += OnInteractionAnimation;
+        playerHealth.HealthChangedEvent += OnHealthChanged;
     }
 
     private void OnInteractionAnimation(string type, bool interacting)
@@ -55,6 +69,17 @@ public class PlayerAnimationController : MonoBehaviour
         }
     }
 
+    private void OnHealthChanged(float currentHealth, float maxHealth)
+    {
+        if (previousHealth > currentHealth)
+        {
+            animator.SetTrigger("Damaged");
+            animator.SetFloat("Damaged Float", 1);
+            damagedSetCounter.Value = 0;
+        }
+        previousHealth = currentHealth;
+    }
+
     private void Update()
     {
         animator.SetFloat("Speed", playerRigidbody.velocity.magnitude / playerMovement.Speed);
@@ -62,7 +87,14 @@ public class PlayerAnimationController : MonoBehaviour
 
     private void LateUpdate()
     {
-        armsYRotation = -playerAimer.YRotation;
+        if (Elympics.Player == playerData.Player)
+        {
+            armsYRotation = -playerAimer.YRotation;
+        }
+        else
+        {
+            armsYRotation = -playerAimer.YRotationSynch;
+        }
 
         if (playerRigidbody.velocity != Vector3.zero)
         {
@@ -71,5 +103,18 @@ public class PlayerAnimationController : MonoBehaviour
 
         spineBone.localEulerAngles = armsEuler + new Vector3(0, 0, armsYRotation);
         pelvisBone.localEulerAngles = legsEuler + new Vector3(0, 0, legsYRotation);
+
+        if (damagedSetCounter.Value >= damagedTickDuration)
+        {
+            animator.SetFloat("Damaged Float", 0);
+        }
+    }
+
+    public void ElympicsUpdate()
+    {
+        if (damagedSetCounter.Value < damagedTickDuration)
+        {
+            damagedSetCounter.Value++;
+        }
     }
 }

@@ -76,6 +76,10 @@ public class CubeInteraction : ElympicsMonoBehaviour, IInteractable, IUpdatable
                 playerAimer = playerData.GetComponent<PlayerAimer>();
             }
         }
+        if (playerAimer == null)
+        {
+            return;
+        }
         rigidbody.position = playerAimer.transform.position + playerAimer.Rotation * pickupOffset;
         rigidbody.rotation = playerAimer.Rotation;
     }

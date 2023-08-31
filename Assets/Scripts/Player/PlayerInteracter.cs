@@ -24,22 +24,31 @@ public class PlayerInteracter : ElympicsMonoBehaviour, IUpdatable
 
     public event System.Action<string, bool> InteractionAnimationEvent;
 
-    public bool IsInteracting => isInteracting;
+    public bool IsInteracting => isInteracting.Value;
 
-    private bool isInteracting = false;
+    private ElympicsBool isInteracting = new ElympicsBool(false);
+
+    private ElympicsString selectedObjectAnimationType = new ElympicsString("");
 
     private IInteractable selectedObject = null;
     private List<IInteractable> selectedObjects = new List<IInteractable>();
 
+    private void Start()
+    {
+        isInteracting.ValueChanged += (old, cur) =>
+        {
+            InteractionAnimationEvent?.Invoke(selectedObjectAnimationType.Value, cur);
+        };
+    }
+
     public void StartInteracting()
     {
-        if (!isInteracting)
+        if (!isInteracting.Value)
         {
-            isInteracting = true;
+            isInteracting.Value = true;
             if (selectedObject != null)
             {
                 selectedObject.Interact(GetComponent<PlayerData>().PlayerId);
-                InteractionAnimationEvent?.Invoke(selectedObject.AnimationType, true);
             }
             if (debugInfo)
             {
@@ -50,13 +59,12 @@ public class PlayerInteracter : ElympicsMonoBehaviour, IUpdatable
 
     public void StopInteracting()
     {
-        if (isInteracting)
+        if (isInteracting.Value)
         {
-            isInteracting = false;
+            isInteracting.Value = false;
             if (selectedObject != null)
             {
                 selectedObject.StopInteracting();
-                InteractionAnimationEvent?.Invoke(selectedObject.AnimationType, false);
             }
             if (debugInfo)
             {
@@ -86,7 +94,7 @@ public class PlayerInteracter : ElympicsMonoBehaviour, IUpdatable
 
     private void UpdateSelectedObject()
     {
-        if (isInteracting)
+        if (isInteracting.Value)
         {
             return;
         }
@@ -128,11 +136,13 @@ public class PlayerInteracter : ElympicsMonoBehaviour, IUpdatable
             if (selectedObject != null && select)
             {
                 selectedObject.Select();
+                selectedObjectAnimationType.Value = selectedObject.AnimationType;
             }
         }
         if (selectedObject != null && !selectedObject.IsSelected)
         {
             selectedObject.Select();
+            selectedObjectAnimationType.Value = selectedObject.AnimationType;
         }
     }
 
