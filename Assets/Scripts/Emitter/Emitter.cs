@@ -21,6 +21,12 @@ public class Emitter : ElympicsMonoBehaviour, IUpdatable
     [SerializeField]
     private bool shootOnAwake;
 
+    [Header("Events")]
+    [SerializeField]
+    private BoolEvent powerEvent;
+    [SerializeField]
+    private PlayerColorEvent playerColorEvent;
+
     [Header("Debug")]
     [SerializeField]
     private bool drawGizmos;
@@ -29,10 +35,10 @@ public class Emitter : ElympicsMonoBehaviour, IUpdatable
 
     private Laser laser = null;
 
-    private bool isShooting = false;
-
     private new Renderer renderer;
+
     private ElympicsInt colorMaterialInt = new ElympicsInt(-1);
+    private ElympicsBool isShooting = new ElympicsBool(false);
 
     private Vector3 emissionDirection => Quaternion.Euler(0, emissionRotation, 0) * transform.forward;
 
@@ -69,7 +75,7 @@ public class Emitter : ElympicsMonoBehaviour, IUpdatable
 
     public void ElympicsUpdate()
     {
-        if (isShooting)
+        if (isShooting.Value)
         {
             ShootLaser();
         }
@@ -92,30 +98,34 @@ public class Emitter : ElympicsMonoBehaviour, IUpdatable
 
     public void StartShooting()
     {
-        isShooting = true;
+        isShooting.Value = true;
     }
 
     public void StopShooting()
     {
-        isShooting = false;
+        isShooting.Value = false;
     }
 
     private void Awake()
     {
+        isShooting.ValueChanged += (_, v) => powerEvent.Invoke(v);
         if (shootOnAwake)
         {
-            isShooting = true;
+            isShooting.Value = true;
         }
+        powerEvent.Invoke(shootOnAwake);
         renderer = GetComponent<Renderer>();
         Color c = renderer.materials[2].color;
         c.a = 0;
         renderer.materials[2].color = c;
         colorMaterialInt.ValueChanged += (_, v) => ChangeMaterialColor(v);
         colorMaterialInt.Value = (int)playerColor;
+        playerColorEvent.Invoke(playerColor);
     }
 
     private void ChangeMaterialColor(int val)
     {
+        PlayerData.PlayerColor playerColor = (PlayerData.PlayerColor)val;
         if (val == -1)
         {
             Color c = renderer.materials[2].color;
@@ -124,7 +134,8 @@ public class Emitter : ElympicsMonoBehaviour, IUpdatable
         }
         else
         {
-            renderer.materials[2].color = PlayerData.PlayerColorToColor((PlayerData.PlayerColor)val);
+            renderer.materials[2].color = PlayerData.PlayerColorToColor(playerColor);
         }
+        playerColorEvent.Invoke(playerColor);
     }
 }

@@ -114,7 +114,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   forceNetworkId: 0
-  networkId: 249
+  networkId: 302
   predictableFor:
     playerIndex: -2
   isUpdatableForNonOwners: 0
@@ -148,5 +148,11 @@ MonoBehaviour:
   playerColor: 0
   damage: 1
   shootOnAwake: 1
+  powerEvent:
+    m_PersistentCalls:
+      m_Calls: []
+  playerColorEvent:
+    m_PersistentCalls:
+      m_Calls: []
   drawGizmos: 1
   sphereRadius: 0.1
