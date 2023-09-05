@@ -55,6 +55,11 @@ public class PlayerAnimationController : ElympicsMonoBehaviour, IUpdatable
 
     private void OnInteractionAnimation(string type, bool interacting)
     {
+        if (string.IsNullOrEmpty(type))
+        {
+            return;
+        }
+
         switch (type)
         {
             case "Holding":

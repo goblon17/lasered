@@ -5,7 +5,7 @@ using UnityEngine;
 using Elympics;
 
 [RequireComponent(typeof(LineRenderer))]
-public class Laser : ElympicsMonoBehaviour, IInitializable, IUpdatable
+public class Laser : ElympicsMonoBehaviour, IUpdatable
 {
     private class ChildLaser
     {
@@ -42,6 +42,12 @@ public class Laser : ElympicsMonoBehaviour, IInitializable, IUpdatable
     private int currentReceiverArgument;
 
     private List<ChildLaser> childLasers = new List<ChildLaser>();
+
+    private void Start()
+    {
+        ChangeColor(playerColorInt.Value);
+        playerColorInt.ValueChanged += (_, e) => ChangeColor(e);
+    }
 
     private void Update()
     {
@@ -230,12 +236,6 @@ public class Laser : ElympicsMonoBehaviour, IInitializable, IUpdatable
     {
         lineRenderer.positionCount = positions.Count;
         lineRenderer.SetPositions(positions.ToArray());
-    }
-
-    public void Initialize()
-    {
-        ChangeColor(playerColorInt.Value);
-        playerColorInt.ValueChanged += (_, e) => ChangeColor(e);
     }
 
     public void ElympicsUpdate()

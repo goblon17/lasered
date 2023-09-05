@@ -131,6 +131,7 @@ public class PlayerInteracter : ElympicsMonoBehaviour, IUpdatable
             if (selectedObject != null)
             {
                 selectedObject.Unselect();
+                selectedObjectAnimationType.Value = "";
             }
             selectedObject = minSelect;
             if (selectedObject != null && select)
