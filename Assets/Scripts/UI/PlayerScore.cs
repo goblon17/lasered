@@ -2,13 +2,13 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using Elympics;
-using TMPro;
 using UnityEngine.UI;
+using System.Linq;
 
 public class PlayerScore : ElympicsMonoBehaviour
 {
     [SerializeField]
-    private TextMeshProUGUI text;
+    private List<Image> scoreImages;
     [SerializeField]
     private PlayerData.PlayerColor color;
     [SerializeField]
@@ -20,7 +20,9 @@ public class PlayerScore : ElympicsMonoBehaviour
     private void Awake()
     {
         Score.ValueChanged += OnValueChanged;
-        playerImage.color = PlayerData.PlayerColorToColor(color);
+        Color colorValue = PlayerData.PlayerColorToColor(color);
+        colorValue.a = playerImage.color.a;
+        playerImage.color = colorValue;
         if (GameManager.IsInstanced)
         {
             OnValueChanged(0, 0);
@@ -33,6 +35,9 @@ public class PlayerScore : ElympicsMonoBehaviour
 
     private void OnValueChanged(int oldValue, int newValue)
     {
-        text.text = $"{newValue}/{GameManager.Instance.WinReceiversCount}";
+        foreach (var (image, i) in scoreImages.Select((x, i) => (x, i)))
+        {
+            image.gameObject.SetActive(i < newValue);
+        }
     }
 }
