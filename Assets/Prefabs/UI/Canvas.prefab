@@ -523,6 +523,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   slicedFilledImages:
   - {fileID: 3632270833866014578}
+  images: []
   animateColor: 1
   gradient:
     serializedVersion: 2
@@ -981,8 +982,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e135f677fd89b784199f0732e4caea26, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  damagedFadeSpeed: 10
-  damagedScreenDuration: 0.2
+  damagedFadeDuration: 0.1
+  damagedScreenDuration: 0
   healthBar: {fileID: 3632270833881515425}
   cursorController: {fileID: 3632270834733251306}
   interactionTooltip: {fileID: 3632270834777656810}

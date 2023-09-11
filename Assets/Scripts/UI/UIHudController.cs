@@ -5,7 +5,7 @@ using UnityEngine;
 public class UIHudController : Singleton<UIHudController>
 {
     [SerializeField]
-    private float damagedFadeSpeed;
+    private float damagedFadeDuration;
     [SerializeField]
     private float damagedScreenDuration;
 
@@ -62,14 +62,14 @@ public class UIHudController : Singleton<UIHudController>
         if (currentHealth < previousHealth)
         {
             alphaTarget = 1;
-            damagedScreenEndTimestamp = Time.time + damagedScreenDuration;
+            damagedScreenEndTimestamp = Time.time + damagedFadeDuration + damagedScreenDuration;
         }
         previousHealth = currentHealth;
     }
 
     private void Update()
     {
-        damagedScreenCanvasGroup.alpha = Mathf.MoveTowards(damagedScreenCanvasGroup.alpha, alphaTarget, damagedFadeSpeed * Time.deltaTime);
+        damagedScreenCanvasGroup.alpha = Mathf.MoveTowards(damagedScreenCanvasGroup.alpha, alphaTarget, (1 / damagedFadeDuration) * Time.deltaTime);
 
         if (Time.time > damagedScreenEndTimestamp)
         {
