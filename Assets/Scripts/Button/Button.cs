@@ -7,6 +7,8 @@ public class Button : MonoBehaviour, IInteractable
 {
     [SerializeField]
     private IntEvent interactEvent;
+    [SerializeField]
+    private List<SerializedPair<ActivationType, Emitter>> activatedEmitters;
 
     public bool IsSelected { get; private set; } = false;
 
@@ -14,7 +16,7 @@ public class Button : MonoBehaviour, IInteractable
 
     public string AnimationType => "Click";
 
-    public bool CanBeInteractedWith => true;
+    public bool CanBeSelected => true;
 
     public void Interact(int playerId)
     {
@@ -25,13 +27,39 @@ public class Button : MonoBehaviour, IInteractable
 
     public void Select()
     {
-        UIHudController.Instance.InteractionTooltip.ShowInteraction(this, transform);
+        foreach (SerializedPair<ActivationType, Emitter> activatedEmitter in activatedEmitters)
+        {
+            switch (activatedEmitter.Key)
+            {
+                case ActivationType.Power:
+                case ActivationType.PowerInverted:
+                    activatedEmitter.Value.ShowPower(activatedEmitter.Key == ActivationType.PowerInverted);
+                    break;
+                case ActivationType.Color:
+                    activatedEmitter.Value.ShowColor();
+                    break;
+            }
+        }
+        UIHudController.Instance.InteractionTooltip.ShowInteraction(transform);
         IsSelected = true;
     }
 
     public void Unselect()
     {
-        UIHudController.Instance.InteractionTooltip.HideInteraction(this);
+        foreach (SerializedPair<ActivationType, Emitter> activatedEmitter in activatedEmitters)
+        {
+            switch (activatedEmitter.Key)
+            {
+                case ActivationType.Power:
+                case ActivationType.PowerInverted:
+                    activatedEmitter.Value.HidePower();
+                    break;
+                case ActivationType.Color:
+                    activatedEmitter.Value.HideColor();
+                    break;
+            }
+        }
+        UIHudController.Instance.InteractionTooltip.HideInteraction(transform);
         IsSelected = false;
     }
 

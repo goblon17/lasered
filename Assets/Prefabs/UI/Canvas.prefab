@@ -1157,6 +1157,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   interactionIconPrefab: {fileID: 1029208391558797909, guid: 875dfb31ac6b6cf48948e5bae53d2b06, type: 3}
+  powerIconPrefab: {fileID: 1029208391558797909, guid: 231ffb1b6d1db36479149bdca5b6780b, type: 3}
+  colorIconPrefab: {fileID: 1029208391558797909, guid: bae08965cd142204c8f4780be047f170, type: 3}
 --- !u!1 &3632270834832419516
 GameObject:
   m_ObjectHideFlags: 0

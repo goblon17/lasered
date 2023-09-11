@@ -21,7 +21,7 @@ public class CubeInteraction : ElympicsMonoBehaviour, IInteractable, IUpdatable
 
     public string AnimationType => "Holding";
 
-    public bool CanBeInteractedWith => playerId.Value < 0;
+    public bool CanBeSelected => playerId.Value < 0;
 
     private new Rigidbody rigidbody;
     private PlayerData playerData;
@@ -49,19 +49,19 @@ public class CubeInteraction : ElympicsMonoBehaviour, IInteractable, IUpdatable
 
     public void Select()
     {
-        UIHudController.Instance.InteractionTooltip.ShowInteraction(this, transform);
+        UIHudController.Instance.InteractionTooltip.ShowInteraction(transform);
         IsSelected = true;
     }
 
     public void Unselect()
     {
-        UIHudController.Instance.InteractionTooltip.HideInteraction(this);
+        UIHudController.Instance.InteractionTooltip.HideInteraction(transform);
         IsSelected = false;
     }
 
     public void ElympicsUpdate()
     {
-        if (CanBeInteractedWith)
+        if (CanBeSelected)
         {
             playerData = null;
             playerAimer = null;

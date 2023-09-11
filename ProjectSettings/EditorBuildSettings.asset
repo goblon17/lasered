@@ -14,4 +14,7 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/ThePartWhereHeKillsYou.unity
     guid: 73150d229aa5d6845ada35e6e32407ba
+  - enabled: 1
+    path: Assets/Scenes/ThePartWhereHeHealsYou.unity
+    guid: 24003f62e961a4943a340e0c235b3687
   m_configObjects: {}

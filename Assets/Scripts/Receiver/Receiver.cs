@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
 
-public class Receiver : MonoBehaviour
+public class Receiver : MonoBehaviour, ISelectable
 {
     [SerializeField]
     private Vector3 endPoint;
@@ -11,6 +11,8 @@ public class Receiver : MonoBehaviour
     private IntEvent activateEvent;
     [SerializeField]
     private IntEvent deactivateEvent;
+    [SerializeField]
+    private List<SerializedPair<ActivationType, Emitter>> activatedEmitters;
 
     [Header("Debug")]
     [SerializeField]
@@ -22,6 +24,11 @@ public class Receiver : MonoBehaviour
     public event System.Action<Receiver, int> DeactivateEvent;
 
     public Vector3 Point => transform.TransformPoint(endPoint);
+
+    public bool IsSelected { get; private set; } = false;
+
+    public Vector3 Position => transform.position;
+    public bool CanBeSelected => true;
 
     private Dictionary<int, int> activationCounter = new Dictionary<int, int>();
 
@@ -101,5 +108,41 @@ public class Receiver : MonoBehaviour
                 Gizmos.DrawLine(transform.position, start.Value);
             }
         }
+    }
+
+    public void Select()
+    {
+        foreach (SerializedPair<ActivationType, Emitter> activatedEmitter in activatedEmitters)
+        {
+            switch (activatedEmitter.Key)
+            {
+                case ActivationType.Power:
+                case ActivationType.PowerInverted:
+                    activatedEmitter.Value.ShowPower(activatedEmitter.Key == ActivationType.PowerInverted);
+                    break;
+                case ActivationType.Color:
+                    activatedEmitter.Value.ShowColor();
+                    break;
+            }
+        }
+        IsSelected = true;
+    }
+
+    public void Unselect()
+    {
+        foreach (SerializedPair<ActivationType, Emitter> activatedEmitter in activatedEmitters)
+        {
+            switch (activatedEmitter.Key)
+            {
+                case ActivationType.Power:
+                case ActivationType.PowerInverted:
+                    activatedEmitter.Value.HidePower();
+                    break;
+                case ActivationType.Color:
+                    activatedEmitter.Value.HideColor();
+                    break;
+            }
+        }
+        IsSelected = false;
     }
 }

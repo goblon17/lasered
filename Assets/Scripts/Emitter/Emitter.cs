@@ -138,4 +138,24 @@ public class Emitter : ElympicsMonoBehaviour, IUpdatable
         }
         playerColorEvent.Invoke(playerColor);
     }
+
+    public void ShowColor()
+    {
+        UIHudController.Instance.InteractionTooltip.ShowColor(transform, () => (PlayerData.PlayerColor)colorMaterialInt.Value);
+    }
+    
+    public void HideColor()
+    {
+        UIHudController.Instance.InteractionTooltip.HideColor(transform);
+    }
+
+    public void ShowPower(bool inverted = false)
+    {
+        UIHudController.Instance.InteractionTooltip.ShowPower(transform, () => isShooting.Value ^ inverted);
+    }
+    
+    public void HidePower()
+    {
+        UIHudController.Instance.InteractionTooltip.HidePower(transform);
+    }
 }

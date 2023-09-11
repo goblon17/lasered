@@ -25,13 +25,14 @@ public class PlayerInteracter : ElympicsMonoBehaviour, IUpdatable
     public event System.Action<string, bool> InteractionAnimationEvent;
 
     public bool IsInteracting => isInteracting.Value;
+    private IInteractable interactableObject => selectedObject as IInteractable;
 
     private ElympicsBool isInteracting = new ElympicsBool(false);
 
     private ElympicsString selectedObjectAnimationType = new ElympicsString("");
 
-    private IInteractable selectedObject = null;
-    private List<IInteractable> selectedObjects = new List<IInteractable>();
+    private ISelectable selectedObject = null;
+    private List<ISelectable> selectedObjects = new List<ISelectable>();
 
     private void Start()
     {
@@ -46,9 +47,9 @@ public class PlayerInteracter : ElympicsMonoBehaviour, IUpdatable
         if (!isInteracting.Value)
         {
             isInteracting.Value = true;
-            if (selectedObject != null)
+            if (interactableObject != null)
             {
-                selectedObject.Interact(GetComponent<PlayerData>().PlayerId);
+                interactableObject.Interact(GetComponent<PlayerData>().PlayerId);
             }
             if (debugInfo)
             {
@@ -62,9 +63,9 @@ public class PlayerInteracter : ElympicsMonoBehaviour, IUpdatable
         if (isInteracting.Value)
         {
             isInteracting.Value = false;
-            if (selectedObject != null)
+            if (interactableObject != null)
             {
-                selectedObject.StopInteracting();
+                interactableObject.StopInteracting();
             }
             if (debugInfo)
             {
@@ -81,11 +82,11 @@ public class PlayerInteracter : ElympicsMonoBehaviour, IUpdatable
         selectedObjects.Clear();
         foreach (Collider collider in colliders)
         {
-            if (collider.TryGetComponent(out IInteractable interactable))
+            if (collider.TryGetComponent(out ISelectable selectable))
             {
-                if (interactable.CanBeInteractedWith)
+                if (selectable.CanBeSelected)
                 {
-                    selectedObjects.Add(interactable);
+                    selectedObjects.Add(selectable);
                 }
             }
         }
@@ -99,9 +100,9 @@ public class PlayerInteracter : ElympicsMonoBehaviour, IUpdatable
             return;
         }
 
-        IInteractable minSelect = null;
+        ISelectable minSelect = null;
         float minDistance = Mathf.Infinity;
-        foreach (IInteractable selected in selectedObjects)
+        foreach (ISelectable selected in selectedObjects)
         {
             float distance = (selected.Position - transform.position).magnitude;
             if (distance <= minDistance)
@@ -137,13 +138,27 @@ public class PlayerInteracter : ElympicsMonoBehaviour, IUpdatable
             if (selectedObject != null && select)
             {
                 selectedObject.Select();
-                selectedObjectAnimationType.Value = selectedObject.AnimationType;
+                if (interactableObject != null)
+                {
+                    selectedObjectAnimationType.Value = interactableObject.AnimationType;
+                }
+                else
+                {
+                    selectedObjectAnimationType.Value = "";
+                }
             }
         }
         if (selectedObject != null && !selectedObject.IsSelected)
         {
             selectedObject.Select();
-            selectedObjectAnimationType.Value = selectedObject.AnimationType;
+            if (interactableObject != null)
+            {
+                selectedObjectAnimationType.Value = interactableObject.AnimationType;
+            }
+            else
+            {
+                selectedObjectAnimationType.Value = "";
+            }
         }
     }
 
