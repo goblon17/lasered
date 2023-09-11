@@ -5,6 +5,11 @@ using UnityEngine;
 public class UIHudController : Singleton<UIHudController>
 {
     [SerializeField]
+    private float damagedFadeSpeed;
+    [SerializeField]
+    private float damagedScreenDuration;
+
+    [SerializeField]
     private UIBarController healthBar;
     [SerializeField]
     private UICursorController cursorController;
@@ -12,9 +17,15 @@ public class UIHudController : Singleton<UIHudController>
     private UIInteractionTooltip interactionTooltip;
     [SerializeField]
     private GameObject deathScreen;
+    [SerializeField]
+    private CanvasGroup damagedScreenCanvasGroup;
 
     public UIInteractionTooltip InteractionTooltip => interactionTooltip;
     public GameObject DeathScreen => deathScreen;
+
+    private float previousHealth;
+    private float alphaTarget = 0;
+    private float damagedScreenEndTimestamp = 0;
 
     private void Start()
     {
@@ -26,18 +37,43 @@ public class UIHudController : Singleton<UIHudController>
         {
             ClientProvider.Instance.OnInitializeEvent += (_, _) => RegisterPlayer();
         }
+
+        damagedScreenCanvasGroup.alpha = 0;
     }
 
     private void RegisterPlayer()
     {
         PlayerData playerData = ClientProvider.Instance.ClientPlayer;
         PlayerHealth playerHealth = playerData.GetComponent<PlayerHealth>();
-        playerHealth.HealthChangedEvent += healthBar.ChangeValue;
+        previousHealth = playerHealth.CurrentHealth;
+        playerHealth.HealthChangedEvent += OnHealthChanged;
         healthBar.ChangeValue(1, 1);
-        playerHealth.IsDeadChangedEvent += (e) => deathScreen.SetActive(e);
+        playerHealth.IsDeadChangedEvent += deathScreen.SetActive;
         deathScreen.SetActive(false);
 
 
         playerData.GetComponent<PlayerAimer>().AimDirectionChangedEvent += cursorController.SetAimDirection;
+    }
+
+    private void OnHealthChanged(float currentHealth, float maxHealth)
+    {
+        healthBar.ChangeValue(currentHealth, maxHealth);
+
+        if (currentHealth < previousHealth)
+        {
+            alphaTarget = 1;
+            damagedScreenEndTimestamp = Time.time + damagedScreenDuration;
+        }
+        previousHealth = currentHealth;
+    }
+
+    private void Update()
+    {
+        damagedScreenCanvasGroup.alpha = Mathf.MoveTowards(damagedScreenCanvasGroup.alpha, alphaTarget, damagedFadeSpeed * Time.deltaTime);
+
+        if (Time.time > damagedScreenEndTimestamp)
+        {
+            alphaTarget = 0;
+        }
     }
 }

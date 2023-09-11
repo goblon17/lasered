@@ -581,7 +581,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d6ea7def050cdd042ac36cbecc059c59, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  images:
+  slicedFilledImages:
   - {fileID: 8573383851133147983}
   animateColor: 1
   gradient:
