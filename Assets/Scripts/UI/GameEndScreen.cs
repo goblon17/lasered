@@ -56,14 +56,23 @@ public class GameEndScreen : MonoBehaviour
 	{
 		if ((GameStateManager.GameState)newGameState == GameStateManager.GameState.MatchEnded)
         {
-			screenCanvasGroup.alpha = 1;
+			if (screenCanvasGroup != null)
+			{
+				screenCanvasGroup.alpha = 1;
+			}
 			UIHudController.Instance.DeathScreen.SetActive(false);
 			CursorManager.Instance.UnlockCursor();
-			StartCoroutine(DelayedReturnToMenu());
+			if (this != null)
+			{
+				StartCoroutine(DelayedReturnToMenu());
+			}
         }
 		else
         {
-			screenCanvasGroup.alpha = 0;
+			if (screenCanvasGroup != null)
+			{
+				screenCanvasGroup.alpha = 0;
+			}
 		}
 	}
 

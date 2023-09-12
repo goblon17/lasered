@@ -98,7 +98,10 @@ public class GameManager : ElympicsSingleton<GameManager>, IInitializable
         }
 
         playerScores[playerId].Add(receiver);
-        PlayerSpawner.Instance.GetPlayerScoreById(playerId).Score.Value = playerScores[playerId].Count;
+        if (PlayerSpawner.Instance != null)
+        {
+            PlayerSpawner.Instance.GetPlayerScoreById(playerId).Score.Value = playerScores[playerId].Count;
+        }
         CheckForWin();
     }
 
@@ -110,6 +113,9 @@ public class GameManager : ElympicsSingleton<GameManager>, IInitializable
         }
 
         playerScores[playerId].Remove(receiver);
-        PlayerSpawner.Instance.GetPlayerScoreById(playerId).Score.Value = playerScores[playerId].Count;
+        if (PlayerSpawner.Instance != null)
+        {
+            PlayerSpawner.Instance.GetPlayerScoreById(playerId).Score.Value = playerScores[playerId].Count;
+        }
     }
 }

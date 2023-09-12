@@ -51,7 +51,7 @@ public class PlayerHealth : ElympicsMonoBehaviour, IInitializable, IUpdatable
 
     public void Heal(float amount)
     {
-        if (!Elympics.IsServer || amount <= 0)
+        if (!Elympics.IsServer || amount <= 0 || IsDead)
         {
             return;
         }

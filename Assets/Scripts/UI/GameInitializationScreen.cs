@@ -47,6 +47,9 @@ public class GameInitializationScreen : MonoBehaviour
 
     private void SetScreenDisplayBasedOnCurrentGameState(int lastGameState, int newGameState)
     {
-        screen.alpha = (GameStateManager.GameState)newGameState == GameStateManager.GameState.Prematch ? 1.0f : 0.0f;
+        if (screen != null)
+        {
+            screen.alpha = (GameStateManager.GameState)newGameState == GameStateManager.GameState.Prematch ? 1.0f : 0.0f;
+        }
     }
 }
