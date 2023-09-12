@@ -10,14 +10,14 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 3718fdc79f884b648722df4e56317063, type: 3}
-  m_Name: ElympicsGameConfig
+  m_Name: Tutorial
   m_EditorClassIdentifier: 
-  gameName: Lasered
+  gameName: Lasered_Tutorial
   gameId: 5cab0051-7262-4777-82b2-db72b13f4233
   gameVersion: 0.5.1
-  players: 4
-  gameplayScene: Assets/Scenes/ThePartWhereHeHealsYou.unity
-  gameplaySceneAsset: {fileID: 102900000, guid: 24003f62e961a4943a340e0c235b3687, type: 3}
+  players: 2
+  gameplayScene: Assets/Scenes/ThePartWhereHeTeachesYou.unity
+  gameplaySceneAsset: {fileID: 102900000, guid: 644590360c109d84ba7fef6c42f92ea5, type: 3}
   botsInServer: 1
   useWeb: 0
   legacyMatchmakingClient: 0
@@ -40,7 +40,7 @@ MonoBehaviour:
   prediction: 1
   predictionLimitInTicks: 8
   detailedNetworkLog: 0
-  mode: 1
+  mode: 0
   halfRemoteMode: 0
   useWebInHalfRemote: 0
   ipForHalfRemoteMode: 127.0.0.1
@@ -57,16 +57,6 @@ MonoBehaviour:
     gameEngineData: 
     matchmakerData: []
   - userId: 1
-    isBot: 1
-    botDifficulty: 0
-    gameEngineData: 
-    matchmakerData: []
-  - userId: 2
-    isBot: 1
-    botDifficulty: 0
-    gameEngineData: 
-    matchmakerData: []
-  - userId: 3
     isBot: 1
     botDifficulty: 0
     gameEngineData: 

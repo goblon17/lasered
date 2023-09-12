@@ -17,4 +17,7 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/ThePartWhereHeHealsYou.unity
     guid: 24003f62e961a4943a340e0c235b3687
+  - enabled: 1
+    path: Assets/Scenes/ThePartWhereHeTeachesYou.unity
+    guid: 644590360c109d84ba7fef6c42f92ea5
   m_configObjects: {}

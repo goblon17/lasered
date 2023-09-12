@@ -1,10 +1,12 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.InputSystem;
 using Elympics;
 
 [RequireComponent(typeof(PlayerInputCollector))]
 [RequireComponent(typeof(PlayerData))]
+[RequireComponent(typeof(PlayerInput))]
 public class PlayerInputController : ElympicsMonoBehaviour, IInputHandler, IInitializable, IUpdatable
 {
     [Header("References")]
@@ -17,6 +19,7 @@ public class PlayerInputController : ElympicsMonoBehaviour, IInputHandler, IInit
 
     private PlayerInputCollector playerInputCollector;
     private PlayerData playerData;
+    private PlayerInput playerInput;
 
     private Vector2 moveDirection = Vector2.zero;
     private Vector2 aimDirection = Vector2.zero;
@@ -26,7 +29,20 @@ public class PlayerInputController : ElympicsMonoBehaviour, IInputHandler, IInit
     public void Initialize()
     {
         playerInputCollector = GetComponent<PlayerInputCollector>();
+        playerInput = GetComponent<PlayerInput>();
         playerData = GetComponent<PlayerData>();
+
+        playerData.InitializedEvent += SetupPlayerInput;
+    }
+
+    private void SetupPlayerInput()
+    {
+        if (!Elympics.IsServer)
+        {
+            playerInput.enabled = Elympics.Player == playerData.Player;
+        }
+
+        playerData.InitializedEvent -= SetupPlayerInput;
     }
 
     public void ElympicsUpdate()
@@ -43,7 +59,7 @@ public class PlayerInputController : ElympicsMonoBehaviour, IInputHandler, IInit
 
     public void OnInputForBot(IInputWriter inputSerializer)
     {
-        SerializeInput(inputSerializer);
+        //SerializeInput(inputSerializer);
     }
 
     public void OnInputForClient(IInputWriter inputSerializer)

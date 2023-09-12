@@ -67,8 +67,15 @@ public class MainMenuController : MonoBehaviour
         ElympicsLobbyClient.Instance.Matchmaker.MatchmakingFailed -= OnMatchmakingFailed;
     }
 
+    public void PlayTutorial()
+    {
+        ElympicsConfig.Load().SwitchGame(1);
+        ElympicsLobbyClient.Instance.PlayOffline();
+    }
+
     public void PlayOnline()
     {
+        ElympicsConfig.Load().SwitchGame(0);
         ElympicsLobbyClient.Instance.PlayOnlineInRegion(null, null, null, "Normal");
     }
 

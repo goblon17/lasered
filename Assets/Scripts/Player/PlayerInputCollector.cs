@@ -25,7 +25,7 @@ public class PlayerInputCollector : ElympicsMonoBehaviour
         {
             return;
         }
-        if (PredictableFor != Elympics.Player)
+        if (PredictableFor != Elympics.Player && !Elympics.IsServer)
         {
             return;
         }

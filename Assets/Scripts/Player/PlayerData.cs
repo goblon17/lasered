@@ -19,6 +19,8 @@ public class PlayerData : ElympicsMonoBehaviour, IInitializable
     public int PlayerColorInt => (int)PlayerColorEnum;
     public string Name => PlayerColorEnum.ToString();
 
+    public event System.Action InitializedEvent;
+
     public static string GetNameById(int playerId)
     {
         try
@@ -66,5 +68,7 @@ public class PlayerData : ElympicsMonoBehaviour, IInitializable
         Material material = renderer.materials[colorMaterialIndex];
         material.color = Color;
         renderer.materials[colorMaterialIndex] = material;
+
+        InitializedEvent?.Invoke();
     }
 }
