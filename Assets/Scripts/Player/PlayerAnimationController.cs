@@ -19,6 +19,8 @@ public class PlayerAnimationController : ElympicsMonoBehaviour, IUpdatable
     private PlayerData playerData;
     [SerializeField]
     private Rigidbody playerRigidbody;
+    [SerializeField]
+    private SoundModule soundModule;
 
     [Header("Armarure")]
     [SerializeField]
@@ -64,9 +66,14 @@ public class PlayerAnimationController : ElympicsMonoBehaviour, IUpdatable
         {
             case "Holding":
                 animator.SetBool(type, interacting);
+                PlaySound(interacting ? "Pick Up" : "Put Down");
                 break;
             case "Click":
-                animator.SetTrigger(type);
+                if (interacting)
+                {
+                    animator.SetTrigger(type);
+                    PlaySound("Click S");
+                }
                 break;
             default:
                 Debug.LogWarning($"No {type} interaction animation type implemented");
@@ -121,5 +128,10 @@ public class PlayerAnimationController : ElympicsMonoBehaviour, IUpdatable
         {
             damagedSetCounter.Value++;
         }
+    }
+
+    private void PlaySound(string key)
+    {
+        soundModule.PlaySound(key);
     }
 }

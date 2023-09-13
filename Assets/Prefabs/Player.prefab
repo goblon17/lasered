@@ -621,6 +621,24 @@ MonoBehaviour:
     - Key:
         item: Enemy Damaged
       Value: {fileID: 11400000, guid: bddc8539589fe8047adc8c85cf19d2db, type: 2}
+    - Key:
+        item: Step
+      Value: {fileID: 11400000, guid: b182f25d46e7b504bb1c12bbb2b891e3, type: 2}
+    - Key:
+        item: Leg Move
+      Value: {fileID: 11400000, guid: 7ebe24f6c9eeb884aa47ab9b0ceb85c0, type: 2}
+    - Key:
+        item: Pick Up
+      Value: {fileID: 11400000, guid: c007a85bee264dc439475fc64e7922e3, type: 2}
+    - Key:
+        item: Put Down
+      Value: {fileID: 11400000, guid: ea892a5b35f53ab448547de333ceab97, type: 2}
+    - Key:
+        item: Click S
+      Value: {fileID: 11400000, guid: d3ffed1413835bf4faf16644e1b98068, type: 2}
+    - Key:
+        item: Click E
+      Value: {fileID: 11400000, guid: 356af6c9a6c006c47a714690b30c9a39, type: 2}
 --- !u!1 &4399485717435166018
 GameObject:
   m_ObjectHideFlags: 0
@@ -1194,6 +1212,7 @@ MonoBehaviour:
   playerHealth: {fileID: 3939911776945045730}
   playerData: {fileID: 6510184260292340874}
   playerRigidbody: {fileID: 3939911776945045658}
+  soundModule: {fileID: 1752820672157323219}
   spineBone: {fileID: 3111959687044403178}
   pelvisBone: {fileID: 5888528035667482949}
   damagedTickDuration: 2
