@@ -7,6 +7,7 @@ using Elympics;
 [RequireComponent(typeof(PlayerInputCollector))]
 [RequireComponent(typeof(PlayerData))]
 [RequireComponent(typeof(PlayerInput))]
+[RequireComponent(typeof(AudioListener))]
 public class PlayerInputController : ElympicsMonoBehaviour, IInputHandler, IInitializable, IUpdatable
 {
     [Header("References")]
@@ -20,6 +21,7 @@ public class PlayerInputController : ElympicsMonoBehaviour, IInputHandler, IInit
     private PlayerInputCollector playerInputCollector;
     private PlayerData playerData;
     private PlayerInput playerInput;
+    private AudioListener playerAudioListener;
 
     private Vector2 moveDirection = Vector2.zero;
     private Vector2 aimDirection = Vector2.zero;
@@ -31,6 +33,7 @@ public class PlayerInputController : ElympicsMonoBehaviour, IInputHandler, IInit
         playerInputCollector = GetComponent<PlayerInputCollector>();
         playerInput = GetComponent<PlayerInput>();
         playerData = GetComponent<PlayerData>();
+        playerAudioListener = GetComponent<AudioListener>();
 
         playerData.InitializedEvent += SetupPlayerInput;
     }
@@ -40,6 +43,7 @@ public class PlayerInputController : ElympicsMonoBehaviour, IInputHandler, IInit
         if (!Elympics.IsServer)
         {
             playerInput.enabled = Elympics.Player == playerData.Player;
+            playerAudioListener.enabled = Elympics.Player == playerData.Player;
         }
 
         playerData.InitializedEvent -= SetupPlayerInput;

@@ -11,6 +11,12 @@ public class PlayerHealth : ElympicsMonoBehaviour, IInitializable, IUpdatable
     private float regenerationBuffer;
     [SerializeField]
     private float regenerationTime;
+    [SerializeField]
+    private SoundModule soundModule;
+    [SerializeField]
+    private string playerDamagedSoundKey;
+    [SerializeField]
+    private string enemyDamagedSoundKey;
 
     public float MaxHealth => maxHealth;
     public float CurrentHealth => currentHealth.Value;
@@ -27,7 +33,7 @@ public class PlayerHealth : ElympicsMonoBehaviour, IInitializable, IUpdatable
 
     public void Initialize()
     {
-        currentHealth.ValueChanged += (_, v) => HealthChangedEvent?.Invoke(v, maxHealth);
+        currentHealth.ValueChanged += OnHealthChanged;
         currentHealth.Value = maxHealth;
         isDead.ValueChanged += (_, v) => IsDeadChangedEvent?.Invoke(v);
         isDead.Value = false;
@@ -94,5 +100,14 @@ public class PlayerHealth : ElympicsMonoBehaviour, IInitializable, IUpdatable
     public void ElympicsUpdate()
     {
         UpdateRegeneration();
+    }
+
+    private void OnHealthChanged(float oldValue, float newValue)
+    {
+        if (newValue < oldValue)
+        {
+            soundModule.PlaySound((Elympics.Player == PredictableFor || Elympics.IsServer) ? playerDamagedSoundKey : enemyDamagedSoundKey);
+        }
+        HealthChangedEvent?.Invoke(newValue, maxHealth);
     }
 }
