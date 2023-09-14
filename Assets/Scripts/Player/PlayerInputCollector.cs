@@ -14,13 +14,35 @@ public class PlayerInputCollector : ElympicsMonoBehaviour
     public bool PickUpButton { get; private set; } = false;
     public float RotationDirection { get; private set; } = 0;
 
+    private bool paused
+    {
+        get
+        {
+            if (UIHudController.IsInstanced)
+            {
+                return UIHudController.Instance.IsSettingsActive;
+            }
+            return false;
+        }
+    }
+
     public void Move(InputAction.CallbackContext context)
     {
+        if (paused)
+        {
+            return;
+        }
+
         MoveDirection = context.ReadValue<Vector2>();
     }
 
     public void Aim(InputAction.CallbackContext context)
     {
+        if (paused)
+        {
+            return;
+        }
+
         if (!GameStateManager.IsInstanced || GameStateManager.Instance.CurrentGameState.Value != (int)GameStateManager.GameState.GameplayMatchRunning)
         {
             return;
@@ -35,6 +57,11 @@ public class PlayerInputCollector : ElympicsMonoBehaviour
 
     public void PickUp(InputAction.CallbackContext context)
     {
+        if (paused)
+        {
+            return;
+        }
+
         if (context.started)
         {
             PickUpButton = true;
@@ -57,6 +84,11 @@ public class PlayerInputCollector : ElympicsMonoBehaviour
             if (UIHudController.Instance != null)
             {
                 UIHudController.Instance.ToggleSettings();
+                if (paused)
+                {
+                    MoveDirection = Vector2.zero;
+                    PickUpButton = false;
+                }
             }
         }
     }

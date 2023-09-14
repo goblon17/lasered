@@ -24,6 +24,7 @@ public class UIHudController : Singleton<UIHudController>
 
     public UIInteractionTooltip InteractionTooltip => interactionTooltip;
     public GameObject DeathScreen => deathScreen;
+    public bool IsSettingsActive => settingMenuController.IsActive;
 
     private float previousHealth;
     private float alphaTarget = 0;

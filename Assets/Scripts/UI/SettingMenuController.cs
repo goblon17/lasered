@@ -16,6 +16,8 @@ public class SettingMenuController : MonoBehaviour
 
     private bool? cursorLocked = null;
 
+    public bool IsActive => settingScreen.activeSelf;
+
     private void Awake()
     {
         settingScreen.SetActive(false);
