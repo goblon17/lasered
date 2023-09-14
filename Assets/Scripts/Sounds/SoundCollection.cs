@@ -5,6 +5,8 @@ using UnityEngine;
 public abstract class SoundCollection : ScriptableObject
 {
     [SerializeField]
+    protected SoundSettings.SoundType soundType;
+    [SerializeField]
     [MinMaxRange(0, 1)]
     protected RangeBoundariesFloat volume;
 

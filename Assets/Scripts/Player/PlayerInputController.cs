@@ -17,6 +17,8 @@ public class PlayerInputController : ElympicsMonoBehaviour, IInputHandler, IInit
     private PlayerAimer playerAimer;
     [SerializeField]
     private PlayerInteracter playerInteracter;
+    [SerializeField]
+    private GameObject audioListenerToSpawn;
 
     private PlayerInputCollector playerInputCollector;
     private PlayerData playerData;
@@ -27,6 +29,8 @@ public class PlayerInputController : ElympicsMonoBehaviour, IInputHandler, IInit
     private Vector2 aimDirection = Vector2.zero;
     private bool pickUpButton = false;
     private float rotationDirection = 0;
+
+    private bool shouldSpawnAudioListener = false;
 
     public void Initialize()
     {
@@ -46,7 +50,17 @@ public class PlayerInputController : ElympicsMonoBehaviour, IInputHandler, IInit
             playerAudioListener.enabled = Elympics.Player == playerData.Player;
         }
 
+        shouldSpawnAudioListener = playerAudioListener.enabled;
+
         playerData.InitializedEvent -= SetupPlayerInput;
+    }
+
+    private void OnDisable()
+    {
+        if (shouldSpawnAudioListener)
+        {
+            Instantiate(audioListenerToSpawn, transform.position, Quaternion.identity);
+        }
     }
 
     public void ElympicsUpdate()

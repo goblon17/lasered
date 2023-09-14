@@ -19,6 +19,8 @@ public class UIHudController : Singleton<UIHudController>
     private GameObject deathScreen;
     [SerializeField]
     private CanvasGroup damagedScreenCanvasGroup;
+    [SerializeField]
+    private SettingMenuController settingMenuController;
 
     public UIInteractionTooltip InteractionTooltip => interactionTooltip;
     public GameObject DeathScreen => deathScreen;
@@ -75,5 +77,10 @@ public class UIHudController : Singleton<UIHudController>
         {
             alphaTarget = 0;
         }
+    }
+
+    public void ToggleSettings()
+    {
+        settingMenuController.Toggle();
     }
 }

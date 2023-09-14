@@ -49,4 +49,15 @@ public class PlayerInputCollector : ElympicsMonoBehaviour
     {
         RotationDirection = context.ReadValue<float>();
     }
+
+    public void Settings(InputAction.CallbackContext context)
+    {
+        if (context.started)
+        {
+            if (UIHudController.Instance != null)
+            {
+                UIHudController.Instance.ToggleSettings();
+            }
+        }
+    }
 }

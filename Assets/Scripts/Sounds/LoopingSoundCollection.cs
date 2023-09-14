@@ -24,11 +24,12 @@ public class LoopingSoundCollection : SoundCollection
 
         AudioClip beginClip = begin[Random.Range(0, begin.Count)];
         AudioClip loopClip = loop[Random.Range(0, loop.Count)];
-        
+        float calculatedVolume = volume.GetRandomBetween() * SoundSettings.Instance.GetVolumeMultiplier(soundType);
+
         audioSource.clip = loopClip;
         audioSource.loop = true;
 
-        audioSource.PlayOneShot(beginClip, volume.GetRandomBetween());
+        audioSource.PlayOneShot(beginClip, calculatedVolume);
         audioSource.PlayDelayed(beginClip.length);
         
     }
@@ -36,8 +37,9 @@ public class LoopingSoundCollection : SoundCollection
     public override void Finish(AudioSource audioSource)
     {
         AudioClip finishClip = finish[Random.Range(0, finish.Count)];
+        float calculatedVolume = volume.GetRandomBetween() * SoundSettings.Instance.GetVolumeMultiplier(soundType);
 
         audioSource.Stop();
-        audioSource.PlayOneShot(finishClip, volume.GetRandomBetween());
+        audioSource.PlayOneShot(finishClip, calculatedVolume);
     }
 }

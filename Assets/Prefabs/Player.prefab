@@ -308,6 +308,22 @@ MonoBehaviour:
       m_Calls: []
     m_ActionId: 01040fa4-f213-47b0-be5e-c6f427aaf782
     m_ActionName: UI/TrackedDeviceOrientation
+  - m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 3939911776945045734}
+        m_TargetAssemblyTypeName: PlayerInputCollector, Assembly-CSharp
+        m_MethodName: Settings
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_ActionId: 232479cb-e855-4872-b7f3-a874354ab92f
+    m_ActionName: Player/Settings[/Keyboard/escape]
   m_NeverAutoSwitchControlSchemes: 0
   m_DefaultControlScheme: Keyboard&Mouse
   m_DefaultActionMap: Player
@@ -410,6 +426,7 @@ MonoBehaviour:
   playerMovement: {fileID: 3939911776945045728}
   playerAimer: {fileID: 3939911776945045731}
   playerInteracter: {fileID: 8424458863898833504}
+  audioListenerToSpawn: {fileID: 6377452065659810143, guid: 96779e69e05e23c4082db5a5d99b1ef4, type: 3}
 --- !u!114 &3939911776945045728
 MonoBehaviour:
   m_ObjectHideFlags: 0

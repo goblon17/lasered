@@ -17,14 +17,15 @@ public class SimpleSoundCollection : SoundCollection
         }
 
         AudioClip clip = clips[Random.Range(0, clips.Count)];
+        float calculatedVolume = volume.GetRandomBetween() * SoundSettings.Instance.GetVolumeMultiplier(soundType);
 
         if (position != null)
         {
-            AudioSource.PlayClipAtPoint(clip, position.Value, volume.GetRandomBetween());
+            AudioSource.PlayClipAtPoint(clip, position.Value, calculatedVolume);
         }
         else
         {
-            audioSource.PlayOneShot(clip, volume.GetRandomBetween());
+            audioSource.PlayOneShot(clip, calculatedVolume);
         }
     }
 
