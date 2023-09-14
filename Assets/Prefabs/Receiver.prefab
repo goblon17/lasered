@@ -172,6 +172,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f8cfb8c03fa8a4f45a6d54fa721a6ef2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  soundModule: {fileID: 7077199048473750962}
   endPoint: {x: 0, y: 0.29, z: 0.136}
   activateEvent:
     m_PersistentCalls:
@@ -251,9 +252,9 @@ AudioSource:
   Priority: 128
   DopplerLevel: 0
   MinDistance: 1
-  MaxDistance: 50
+  MaxDistance: 30
   Pan2D: 0
-  rolloffMode: 0
+  rolloffMode: 1
   BypassEffects: 0
   BypassListenerEffects: 0
   BypassReverbZones: 0
@@ -339,4 +340,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   sounds:
-    pairs: []
+    pairs:
+    - Key:
+        item: On
+      Value: {fileID: 11400000, guid: e32bf279cf4c3ca4fa1ce8ad3178fd8e, type: 2}
+    - Key:
+        item: Off
+      Value: {fileID: 11400000, guid: 16bb95bff05f1f44f8b963f492327e5a, type: 2}

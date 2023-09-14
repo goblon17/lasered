@@ -8,6 +8,8 @@ public class Emitter : ElympicsMonoBehaviour, IUpdatable
     [Header("References")]
     [SerializeField]
     private string laserPrefabResourcePath;
+    [SerializeField]
+    private SoundModule soundModule;
 
     [Header("Config")]
     [SerializeField]
@@ -114,6 +116,7 @@ public class Emitter : ElympicsMonoBehaviour, IUpdatable
             isShooting.Value = true;
         }
         powerEvent.Invoke(shootOnAwake);
+        powerEvent.AddListener((v) => soundModule.PlaySound(v ? "On" : "Off"));
         renderer = GetComponent<Renderer>();
         Color c = renderer.materials[2].color;
         c.a = 0;
@@ -121,6 +124,7 @@ public class Emitter : ElympicsMonoBehaviour, IUpdatable
         colorMaterialInt.ValueChanged += (_, v) => ChangeMaterialColor(v);
         colorMaterialInt.Value = (int)playerColor;
         playerColorEvent.Invoke(playerColor);
+        playerColorEvent.AddListener((_) => soundModule.PlaySound("Color"));
     }
 
     private void ChangeMaterialColor(int val)

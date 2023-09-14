@@ -639,6 +639,9 @@ MonoBehaviour:
     - Key:
         item: Click E
       Value: {fileID: 11400000, guid: 356af6c9a6c006c47a714690b30c9a39, type: 2}
+    - Key:
+        item: Button
+      Value: {fileID: 11400000, guid: 04556c3b008d4b24d8bc2328b8dd3050, type: 2}
 --- !u!1 &4399485717435166018
 GameObject:
   m_ObjectHideFlags: 0

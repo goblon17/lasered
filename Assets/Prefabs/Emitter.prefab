@@ -116,7 +116,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   forceNetworkId: 0
-  networkId: 302
+  networkId: 342
   predictableFor:
     playerIndex: -2
   isUpdatableForNonOwners: 0
@@ -145,6 +145,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   laserPrefabResourcePath: Prefabs/Laser
+  soundModule: {fileID: 232009896896553407}
   emissionPosition: {x: 0, y: 0.995, z: 0.92}
   emissionRotation: 0
   playerColor: 0
@@ -179,9 +180,9 @@ AudioSource:
   Priority: 128
   DopplerLevel: 0
   MinDistance: 1
-  MaxDistance: 50
+  MaxDistance: 30
   Pan2D: 0
-  rolloffMode: 0
+  rolloffMode: 1
   BypassEffects: 0
   BypassListenerEffects: 0
   BypassReverbZones: 0
@@ -267,4 +268,13 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   sounds:
-    pairs: []
+    pairs:
+    - Key:
+        item: On
+      Value: {fileID: 11400000, guid: 5d4680e26214b2a4d88c5864c51d8b39, type: 2}
+    - Key:
+        item: Off
+      Value: {fileID: 11400000, guid: 74f48b4954656c04b9da80e5e95a6ef5, type: 2}
+    - Key:
+        item: Color
+      Value: {fileID: 11400000, guid: e0bdd4b7901361a4ab0727c344a58c20, type: 2}

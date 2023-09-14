@@ -5,6 +5,11 @@ using UnityEngine.Events;
 
 public class Receiver : MonoBehaviour, ISelectable
 {
+    [Header("References")]
+    [SerializeField]
+    private SoundModule soundModule;
+
+    [Header("Config")]
     [SerializeField]
     private Vector3 endPoint;
     [SerializeField]
@@ -39,6 +44,7 @@ public class Receiver : MonoBehaviour, ISelectable
             activationCounter[playerId] = 0;
         }
         activationCounter[playerId]++;
+        soundModule.PlaySound("On");
         activateEvent.Invoke(playerId);
         ActivateEvent?.Invoke(this, playerId);
     }
@@ -55,6 +61,7 @@ public class Receiver : MonoBehaviour, ISelectable
         }
         if (activationCounter[playerId] <= 0)
         {
+            soundModule.PlaySound("Off");
             deactivateEvent.Invoke(playerId);
             DeactivateEvent?.Invoke(this, playerId);
         }
