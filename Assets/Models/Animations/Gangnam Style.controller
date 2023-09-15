@@ -28,7 +28,7 @@ AnimatorController:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: Player Menu Animator
+  m_Name: Gangnam Style
   serializedVersion: 5
   m_AnimatorParameters:
   - m_Name: Idle
@@ -76,7 +76,7 @@ AnimatorState:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_Name: Tancowanie
-  m_Speed: 0.5
+  m_Speed: 1
   m_CycleOffset: 0
   m_Transitions: []
   m_StateMachineBehaviours: []
@@ -88,7 +88,7 @@ AnimatorState:
   m_MirrorParameterActive: 0
   m_CycleOffsetParameterActive: 0
   m_TimeParameterActive: 0
-  m_Motion: {fileID: 4781951162920444690, guid: 4a6abd23c3f5b7741904aed94a3c70f5, type: 3}
+  m_Motion: {fileID: -203655887218126122, guid: 8942f0306a291c5488c99561f7b1562b, type: 3}
   m_Tag: 
   m_SpeedParameter: 
   m_MirrorParameter: 
