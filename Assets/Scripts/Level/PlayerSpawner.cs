@@ -5,14 +5,37 @@ using Elympics;
 
 public class PlayerSpawner : ElympicsSingleton<PlayerSpawner>
 {
+    [System.Serializable]
+    public class PlayerScores
+    {
+        [SerializeField]
+        private PlayerScore playerScore;
+        [SerializeField]
+        private FinalPlayerScore finalPlayerScore;
+
+        public PlayerScore PlayerScore => playerScore;
+        public FinalPlayerScore FinalPlayerScore => finalPlayerScore;
+
+        public void SetScore(int val)
+        {
+            playerScore.Score.Value = val;
+            finalPlayerScore.Score.Value = val;
+        }
+
+        public void SetDeath(bool val)
+        {
+            finalPlayerScore.Dead.Value = val;
+        }
+    }
+
     [SerializeField]
     private List<PlayerData> players;
     [SerializeField]
-    private List<PlayerScore> scores;
+    private List<PlayerScores> scores;
 
-    public PlayerScore GetPlayerScoreById(int playerId)
+    public PlayerScores GetPlayerScoreById(int playerId)
     {
-        return scores.Find(x => x.PlayerId == playerId);
+        return scores.Find(x => x.PlayerScore.PlayerId == playerId);
     }
 
     public void SpawnPlayer(ElympicsPlayer player)
@@ -22,10 +45,11 @@ public class PlayerSpawner : ElympicsSingleton<PlayerSpawner>
         {
             playerData.gameObject.SetActive(true);
         }
-        PlayerScore playerScore = scores.Find(x => ElympicsPlayer.FromIndex(x.PlayerId) == player);
-        if (playerScore != null)
+        PlayerScores playerScores = scores.Find(x => ElympicsPlayer.FromIndex(x.PlayerScore.PlayerId) == player);
+        if (playerScores != null)
         {
-            playerScore.gameObject.SetActive(true);
+            playerScores.PlayerScore.gameObject.SetActive(true);
+            playerScores.FinalPlayerScore.gameObject.SetActive(true);
         }
     }
 }

@@ -6,6 +6,8 @@ using System.Linq;
 
 public class GameManager : ElympicsSingleton<GameManager>, IInitializable
 {
+    public const int ReceiverWinIdOffset = 100;
+
     [SerializeField]
     private List<Receiver> winReceivers = new List<Receiver>();
 
@@ -55,6 +57,10 @@ public class GameManager : ElympicsSingleton<GameManager>, IInitializable
     {
         alivePlayers.Remove(playerData);
         playerData.gameObject.SetActive(false);
+        if (PlayerSpawner.Instance != null)
+        {
+            PlayerSpawner.Instance.GetPlayerScoreById(playerData.PlayerId).SetDeath(true);
+        }
         CheckForWin();
     }
 
@@ -73,7 +79,7 @@ public class GameManager : ElympicsSingleton<GameManager>, IInitializable
         }
         else if (winReceivers.Count > 0 && maxScore.Value.Count >= winReceivers.Count)
         {
-            WinnerPlayerId.Value = maxScore.Key;
+            WinnerPlayerId.Value = maxScore.Key + ReceiverWinIdOffset;
         }
     }
 
@@ -100,7 +106,7 @@ public class GameManager : ElympicsSingleton<GameManager>, IInitializable
         playerScores[playerId].Add(receiver);
         if (PlayerSpawner.Instance != null)
         {
-            PlayerSpawner.Instance.GetPlayerScoreById(playerId).Score.Value = playerScores[playerId].Count;
+            PlayerSpawner.Instance.GetPlayerScoreById(playerId).SetScore(playerScores[playerId].Count);
         }
         CheckForWin();
     }
@@ -115,7 +121,7 @@ public class GameManager : ElympicsSingleton<GameManager>, IInitializable
         playerScores[playerId].Remove(receiver);
         if (PlayerSpawner.Instance != null)
         {
-            PlayerSpawner.Instance.GetPlayerScoreById(playerId).Score.Value = playerScores[playerId].Count;
+            PlayerSpawner.Instance.GetPlayerScoreById(playerId).SetScore(playerScores[playerId].Count);
         }
     }
 }

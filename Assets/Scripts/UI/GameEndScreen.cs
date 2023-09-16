@@ -10,6 +10,8 @@ public class GameEndScreen : MonoBehaviour
 	[SerializeField]
 	private TextMeshProUGUI gameWinnerText;
 	[SerializeField]
+	private TextMeshProUGUI winDescriptionText;
+	[SerializeField]
 	private CanvasGroup screenCanvasGroup;
 
 	[SerializeField]
@@ -17,6 +19,12 @@ public class GameEndScreen : MonoBehaviour
 	private string winText;
 	[SerializeField]
 	private string playerKey;
+	[SerializeField]
+	[TextArea]
+	private string receiverWinText;
+	[SerializeField]
+	[TextArea]
+	private string aliveWinText;
 	[SerializeField]
 	private float endGameDelay;
 
@@ -49,6 +57,16 @@ public class GameEndScreen : MonoBehaviour
 
 	private void SetWinnerInfo(int lastValue, int newValue)
 	{
+		bool receiver = newValue >= GameManager.ReceiverWinIdOffset;
+		if (receiver)
+        {
+			newValue -= GameManager.ReceiverWinIdOffset;
+			winDescriptionText.text = receiverWinText;
+        }
+		else
+        {
+			winDescriptionText.text = aliveWinText;
+        }
 		gameWinnerText.text = winText.Replace(playerKey, PlayerData.GetNameById(newValue));
 	}
 
