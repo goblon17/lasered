@@ -17,6 +17,9 @@ public class FinalPlayerScore : ElympicsMonoBehaviour
     private Image playerAliveImage;
     [SerializeField]
     private Image playerDeadImage;
+    [SerializeField]
+    [Range(0, 1)]
+    private float deadColorMultiplier;
 
     public int PlayerId => ((int)color) - 1;
     public ElympicsInt Score { private set; get; } = new ElympicsInt(0);
@@ -27,9 +30,11 @@ public class FinalPlayerScore : ElympicsMonoBehaviour
         Score.ValueChanged += OnScoreValueChanged;
         Dead.ValueChanged += OnDeadValueChanged;
         Color colorValue = PlayerData.PlayerColorToColor(color);
+        playerAliveImage.color = colorValue;
+        playerDeadImage.color = new Color(colorValue.r * deadColorMultiplier, colorValue.g * deadColorMultiplier, colorValue.b * deadColorMultiplier, colorValue.a);
+
         colorValue.a = backgroundImage.color.a;
         backgroundImage.color = colorValue;
-        playerAliveImage.color = colorValue;
         if (GameManager.IsInstanced)
         {
             OnGameManagerInstantiate(null, null);
